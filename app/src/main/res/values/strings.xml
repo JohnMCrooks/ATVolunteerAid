@@ -1,0 +1,6 @@
+<resources>
+    <string name="app_name">ATVolunteerAid</string>
+    <string name="map_o_trash">Map O trash</string>
+    <string name="mark_location">Mark Issue</string>
+    <string name="thanks_for_helping_out">Thanks For helping out!</string>
+</resources>
