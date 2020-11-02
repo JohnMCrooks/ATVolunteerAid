@@ -15,6 +15,8 @@ import com.google.android.gms.location.LocationServices
 import com.skoorc.atvolunteeraid.R
 import com.skoorc.atvolunteeraid.database.LocationListAdapter
 import com.skoorc.atvolunteeraid.database.LocationViewModel
+import kotlinx.android.synthetic.main.fragment_list_view.*
+import kotlinx.android.synthetic.main.fragment_list_view.view.*
 
 //Recycler view references here
 //https://developer.android.com/codelabs/android-room-with-a-view-kotlin#12
@@ -44,5 +46,8 @@ class ListFragment: Fragment() {
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        view.fab.setOnClickListener {
+            locationViewModel.deleteAll()
+        }
     }
 }

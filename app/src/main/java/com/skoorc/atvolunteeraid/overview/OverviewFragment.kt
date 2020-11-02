@@ -12,14 +12,16 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
+import androidx.navigation.*
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.google.android.material.snackbar.Snackbar
 import com.skoorc.atvolunteeraid.R
 import com.skoorc.atvolunteeraid.database.LocationViewModel
+import kotlinx.android.synthetic.main.fragment_overview.*
 import kotlinx.android.synthetic.main.fragment_overview.view.*
 
-class MainFragment: Fragment() {
+class OverviewFragment: Fragment() {
     private val TAG = "fragmentOverview"
     private lateinit var layout: View
     private lateinit var fusedLocationClient: FusedLocationProviderClient
@@ -44,15 +46,14 @@ class MainFragment: Fragment() {
             onClickReportLocation(it)
         }
         view.mapButton.setOnClickListener {
-            Snackbar.make(it, "Map button clicked - Not yet Implemented", Snackbar.LENGTH_LONG).show()
+            view.findNavController().navigate(R.id.action_overviewFragment_to_ListFragment)
         }
     }
 
     fun onClickReportLocation(view: View) {
-        Toast.makeText(context, "It's a Doodie", Toast.LENGTH_SHORT).show()
 //        getLastLocation_OG()
         logLastLocationSlim()
-
+        Toast.makeText(context, "It's a Doodie", Toast.LENGTH_SHORT).show()
     }
 
     fun logLastLocationSlim() {
@@ -71,10 +72,9 @@ class MainFragment: Fragment() {
                 .addOnCompleteListener {
                     if (it.isSuccessful) {
                         Log.i(TAG, "Success in scope: ${it.result.longitude}, ${it.result.latitude}")
-                        val newLocation = com.skoorc.atvolunteeraid.database.Location(-1, it.result.latitude.toString(), it.result.longitude.toString(), "11/1/2020")
+                        val newLocation = com.skoorc.atvolunteeraid.database.Location(it.result.latitude.toString(), it.result.longitude.toString(), "11/1/2020")
                         locationViewModel.insert(newLocation)
                         Log.i(TAG, "Location Added")
-                        Log.i(TAG, "all locations: ${locationViewModel.allLocations.value?.size}")
                     }
                 }
         }

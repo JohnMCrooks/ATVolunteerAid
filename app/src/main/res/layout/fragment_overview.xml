@@ -5,7 +5,7 @@
     android:id="@+id/overviewConstraint"
     android:layout_width="match_parent"
     android:layout_height="match_parent"
-    tools:context=".overview.MainFragment">
+    tools:context=".overview.OverviewFragment">
 
     <Button
         android:id="@+id/markLocationButton"

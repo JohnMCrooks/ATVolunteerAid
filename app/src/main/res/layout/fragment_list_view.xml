@@ -20,12 +20,15 @@
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"
-        app:layout_constraintBottom_toBottomOf="parent"
-        app:layout_constraintEnd_toEndOf="parent"
         android:layout_width="wrap_content"
         android:layout_height="wrap_content"
         android:layout_margin="16dp"
         android:contentDescription="@string/add_location"
-        android:src="@drawable/ic_baseline_add_location_24"/>
+        android:src="@drawable/ic_baseline_delete_forever_24"
+        app:backgroundTint="#FF5722"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:fabCustomSize="64dp"
+        app:maxImageSize="32dp"/>
 
 </androidx.constraintlayout.widget.ConstraintLayout>

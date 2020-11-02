@@ -8,9 +8,8 @@ import java.time.Instant
 //https://developer.android.com/codelabs/android-room-with-a-view-kotlin#10
 @Entity(tableName = "location_table")
  data class Location(
-    @PrimaryKey(autoGenerate=true) @ColumnInfo(name="id") var id: Int,
-                @ColumnInfo (name="latitude") var latitude: String,
-                @ColumnInfo (name="longitude") var longitude: String,
-                @ColumnInfo (name="date_added") var date: String) {
-
+                @ColumnInfo (name = "latitude") var latitude: String,
+                @ColumnInfo (name = "longitude") var longitude: String,
+                @ColumnInfo (name = "date_added") var date: String) {
+    @PrimaryKey(autoGenerate = true) var id: Int = 0
 }
