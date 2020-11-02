@@ -6,6 +6,7 @@ import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
 
+//https://developer.android.com/codelabs/android-room-with-a-view-kotlin#10
 @Dao
 interface LocationDAO {
 

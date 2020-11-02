@@ -7,7 +7,7 @@ import androidx.lifecycle.viewModelScope
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
-
+//https://developer.android.com/codelabs/android-room-with-a-view-kotlin#10
 class LocationViewModel(application: Application): AndroidViewModel(application) {
     private val repository: LocationRepository
     //   Using LiveData and caching what getAlphabetizedWords returns has several benefits:

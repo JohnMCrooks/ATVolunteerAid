@@ -5,6 +5,7 @@ import androidx.room.Entity
 import androidx.room.PrimaryKey
 import java.time.Instant
 
+//https://developer.android.com/codelabs/android-room-with-a-view-kotlin#10
 @Entity(tableName = "location_table")
  data class Location(
     @PrimaryKey(autoGenerate=true) @ColumnInfo(name="id") var id: Int,

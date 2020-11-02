@@ -5,6 +5,7 @@ import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
 
+//https://developer.android.com/codelabs/android-room-with-a-view-kotlin#10
 @Database(entities = arrayOf(Location::class), version = 1, exportSchema = false)
 abstract class LocationDatabase: RoomDatabase() {
     abstract fun locationDAO(): LocationDAO
