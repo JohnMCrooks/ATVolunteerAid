@@ -5,6 +5,8 @@
     <string name="thanks">Thanks For helping out!</string>
     <string name="add_location">Add Location</string>
     <string name="hint_word">Location...</string>
+    <string name="view_map">View Map</string>
     <string name="button_save">Save</string>
     <string name="empty_not_saved">Location not saved because something went wrong</string>
+    <string name="title_activity_maps">Map</string>
 </resources>

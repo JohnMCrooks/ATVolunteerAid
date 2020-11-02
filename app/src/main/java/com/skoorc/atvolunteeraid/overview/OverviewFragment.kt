@@ -35,7 +35,7 @@ class OverviewFragment: Fragment() {
         Log.i(TAG,   "Entering OnCreateView for overview fragment")
         fusedLocationClient = LocationServices.getFusedLocationProviderClient(getContext() as Context)
         locationViewModel = ViewModelProvider(this).get(LocationViewModel::class.java)
-        return   inflater.inflate(R.layout.fragment_overview, container, false)
+        return inflater.inflate(R.layout.fragment_overview, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -45,8 +45,12 @@ class OverviewFragment: Fragment() {
         view.markLocationButton.setOnClickListener {
             onClickReportLocation(it)
         }
-        view.mapButton.setOnClickListener {
+        view.listButton.setOnClickListener {
             view.findNavController().navigate(R.id.action_overviewFragment_to_ListFragment)
+        }
+        view.mapButton.setOnClickListener {
+            Toast.makeText(context, "Map Button aint rigged up yet", Toast.LENGTH_SHORT)
+            view.findNavController().navigate(R.id.action_overviewFragment_to_mapsActivity)
         }
     }
 

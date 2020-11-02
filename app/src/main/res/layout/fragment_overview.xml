@@ -11,24 +11,34 @@
         android:id="@+id/markLocationButton"
         android:layout_width="200dp"
         android:layout_height="80dp"
+        android:layout_marginEnd="104dp"
         android:text="@string/mark_location"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintHorizontal_bias="0.0"
-        app:layout_constraintStart_toEndOf="@+id/mapButton"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.967" />
+        app:layout_constraintVertical_bias="0.921" />
+
+    <Button
+        android:id="@+id/listButton"
+        android:layout_width="200dp"
+        android:layout_height="80dp"
+        android:layout_marginStart="104dp"
+        android:text="@string/list_of_trash"
+        app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        app:layout_constraintVertical_bias="0.608" />
 
     <Button
         android:id="@+id/mapButton"
         android:layout_width="200dp"
         android:layout_height="80dp"
-        android:layout_marginStart="4dp"
-        android:text="@string/list_of_trash"
+        android:layout_marginStart="104dp"
+        android:text="@string/view_map"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.967" />
+        app:layout_constraintVertical_bias="0.766" />
 
     <ImageView
         android:id="@+id/atLogo"

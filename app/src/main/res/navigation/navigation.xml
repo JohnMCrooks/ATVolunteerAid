@@ -12,10 +12,18 @@
         <action
             android:id="@+id/action_overviewFragment_to_ListFragment"
             app:destination="@id/ListFragment" />
+        <action
+            android:id="@+id/action_overviewFragment_to_mapsActivity"
+            app:destination="@id/mapsActivity" />
     </fragment>
     <fragment
         android:id="@+id/ListFragment"
         android:name="com.skoorc.atvolunteeraid.overview.ListFragment"
         android:label="fragment_list_view"
         tools:layout="@layout/fragment_list_view" />
+    <activity
+        android:id="@+id/mapsActivity"
+        android:name="com.skoorc.atvolunteeraid.overview.MapsActivity"
+        android:label="activity_maps"
+        tools:layout="@layout/activity_maps" />
 </navigation>
