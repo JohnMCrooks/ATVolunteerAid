@@ -17,7 +17,7 @@ class LocationViewModel(application: Application): AndroidViewModel(application)
     val allLocations: LiveData<List<Location>>
 
     init {
-        val locationDAO = LocationDatabase.getDatabase(application).locationDAO()
+        val locationDAO = LocationDatabase.getDatabase(application, viewModelScope).locationDAO()
         repository = LocationRepository(locationDAO)
         allLocations = repository.allLocations
     }

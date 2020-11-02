@@ -26,9 +26,9 @@ class ListFragment: Fragment() {
     ): View? {
         val view = inflater.inflate(R.layout.fragment_list_view, container, false)
         val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerview)
-        val adapter = LocationListAdapter(getContext() as Context)
+        val adapter = LocationListAdapter(view.context)
         recyclerView.adapter = adapter
-        recyclerView.layoutManager = LinearLayoutManager(getContext() as Context)
+        recyclerView.layoutManager = LinearLayoutManager(view.context)
         return view
     }
 
