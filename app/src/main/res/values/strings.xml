@@ -1,7 +1,10 @@
 <resources>
     <string name="app_name">ATVolunteerAid</string>
-    <string name="map_o_trash">Map O trash</string>
-    <string name="mark_location">Mark Issue</string>
-    <string name="thanks_for_helping_out">Thanks For helping out!</string>
+    <string name="list_of_trash">Trash List</string>
+    <string name="mark_location">Report Issue</string>
+    <string name="thanks">Thanks For helping out!</string>
     <string name="add_location">Add Location</string>
+    <string name="hint_word">Location...</string>
+    <string name="button_save">Save</string>
+    <string name="empty_not_saved">Location not saved because something went wrong</string>
 </resources>

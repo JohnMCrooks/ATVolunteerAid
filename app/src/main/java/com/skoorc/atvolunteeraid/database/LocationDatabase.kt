@@ -8,7 +8,7 @@ import androidx.sqlite.db.SupportSQLiteDatabase
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
-//https://developer.android.com/codelabs/android-room-with-a-view-kotlin#10
+// DB reference --> https://developer.android.com/codelabs/android-room-with-a-view-kotlin#10
 @Database(entities = arrayOf(Location::class), version = 1, exportSchema = false)
 abstract class LocationDatabase: RoomDatabase() {
     abstract fun locationDAO(): LocationDAO
@@ -42,21 +42,21 @@ abstract class LocationDatabase: RoomDatabase() {
             super.onOpen(db)
             INSTANCE?.let { database ->
                 scope.launch{
-                    populateDatabase(database.locationDAO())
+                    prePopulateDatabase(database.locationDAO())
                 }
 
             }
         }
-        suspend fun populateDatabase(locationDao: LocationDAO) {
+        suspend fun prePopulateDatabase(locationDao: LocationDAO) {
             locationDao.deleteAll()
             var locationPlaceholder = Location(1, "35.467338", "-82.572414", "11/1/2020")
             locationDao.insertLocation(locationPlaceholder)
             var locationPlaceholder2 = Location(2, "39.060910", "-76.517500", "11/2/2020")
             locationDao.insertLocation(locationPlaceholder2)
-            locationPlaceholder2.date = "11/3/2020"
+            locationPlaceholder2.id = 3
+            locationPlaceholder2.date = "11/1/2020"
             locationPlaceholder2.latitude = "39.050310"
             locationDao.insertLocation(locationPlaceholder2)
         }
-
     }
 }
