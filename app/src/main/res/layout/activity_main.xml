@@ -4,7 +4,7 @@
 
     <fragment
         android:id="@+id/overview_fragment"
-        android:name="com.skoorc.atvolunteeraid.overview.OverviewFragment"
+        android:name="com.skoorc.atvolunteeraid.overview.ListFragment"
         android:layout_width="match_parent"
         android:layout_height="match_parent" />
 </merge>
