@@ -42,24 +42,24 @@ class ReportProblemFragment: Fragment() {
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
         view.findViewById<Button>(R.id.button_report_blocked_trail).setOnClickListener() {
-            logLastLocationSlim()
+            logLastLocationSlim("Trail Blocked")
             view.findNavController().navigate(R.id.action_reportProblemFragment_to_overviewFragment)
         }
         view.findViewById<Button>(R.id.button_report_poop).setOnClickListener() {
-            logLastLocationSlim()
+            logLastLocationSlim("Poop")
             view.findNavController().navigate(R.id.action_reportProblemFragment_to_overviewFragment)
         }
         view.findViewById<Button>(R.id.button_report_trail_marker).setOnClickListener() {
-            logLastLocationSlim()
+            logLastLocationSlim("Bad Trail Marker")
             view.findNavController().navigate(R.id.action_reportProblemFragment_to_overviewFragment)
         }
         view.findViewById<Button>(R.id.button_report_trash).setOnClickListener() {
-            logLastLocationSlim()
+            logLastLocationSlim("Trash")
             view.findNavController().navigate(R.id.action_reportProblemFragment_to_overviewFragment)
         }
     }
 
-    fun logLastLocationSlim() {
+    fun logLastLocationSlim(problemType: String) {
         Log.d(TAG, "Entering LogLastLocationSlim")
 
         if (ActivityCompat.checkSelfPermission(
@@ -78,9 +78,7 @@ class ReportProblemFragment: Fragment() {
                 .addOnCompleteListener {
                     if (it.isSuccessful) {
                         Log.i(TAG, "Success in scope: ${it.result.longitude}, ${it.result.latitude}")
-                        val newLocation = com.skoorc.atvolunteeraid.database.Location(it.result.latitude.toString(), it.result.longitude.toString(),  getDateString(),
-                            type = "trash"
-                        )
+                        val newLocation = com.skoorc.atvolunteeraid.database.Location(it.result.latitude.toString(), it.result.longitude.toString(),  getDateString(), problemType)
                         Log.d(TAG, "New Location: $newLocation")
                         locationViewModel.insert(newLocation)
                         Log.i(TAG, "Location Added")
@@ -94,10 +92,8 @@ class ReportProblemFragment: Fragment() {
 
     fun getDateString(): String {
         val date: Date = Calendar.getInstance().time
-        Log.i("Date", "Date string format: ${date.toString()}")
-        val dateFormat: SimpleDateFormat = SimpleDateFormat("dd/MM/yyyy")
+        val dateFormat = SimpleDateFormat("dd/MM/yyyy")
         val strDate = dateFormat.format(date)
-        Log.i("Date", "Date string format: ${strDate}")
         return strDate
     }
 }
