@@ -13,7 +13,7 @@
         android:orientation="horizontal"
         android:weightSum="1.0">
         <Button
-            android:id="@+id/button"
+            android:id="@+id/button_report_poop"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_weight=".5"
@@ -22,7 +22,7 @@
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
 
         <Button
-            android:id="@+id/button2"
+            android:id="@+id/button_report_blocked_trail"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_weight=".5"
@@ -38,7 +38,7 @@
         >
 
         <Button
-            android:id="@+id/button3"
+            android:id="@+id/button_report_trail_marker"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_weight=".5"
@@ -47,7 +47,7 @@
             style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
 
         <Button
-            android:id="@+id/button4"
+            android:id="@+id/button_report_trash"
             android:layout_width="0dp"
             android:layout_height="fill_parent"
             android:layout_weight=".5"

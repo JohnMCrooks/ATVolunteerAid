@@ -15,6 +15,9 @@
         <action
             android:id="@+id/action_overviewFragment_to_mapsActivity"
             app:destination="@id/mapsActivity" />
+        <action
+            android:id="@+id/action_overviewFragment_to_reportProblemFragment"
+            app:destination="@id/reportProblemFragment" />
     </fragment>
     <fragment
         android:id="@+id/ListFragment"
@@ -26,4 +29,13 @@
         android:name="com.skoorc.atvolunteeraid.overview.MapsActivity"
         android:label="activity_maps"
         tools:layout="@layout/activity_maps" />
+    <fragment
+        android:id="@+id/reportProblemFragment"
+        android:name="com.skoorc.atvolunteeraid.overview.ReportProblemFragment"
+        android:label="ReportProblemFragment"
+        tools:layout="@layout/fragment_problem_report">
+        <action
+            android:id="@+id/action_reportProblemFragment_to_overviewFragment"
+            app:destination="@id/overviewFragment" />
+    </fragment>
 </navigation>
