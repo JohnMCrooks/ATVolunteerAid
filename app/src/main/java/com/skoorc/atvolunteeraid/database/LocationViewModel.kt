@@ -1,6 +1,7 @@
 package com.skoorc.atvolunteeraid.database
 
 import android.app.Application
+import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
@@ -15,22 +16,27 @@ class LocationViewModel(application: Application): AndroidViewModel(application)
     //   the UI when the data actually changes.
     // - Repository is completely separated from the UI through the ViewModel.
     val allLocations: LiveData<List<Location>>
+    val totalLocationCount: LiveData<Int>
 
     init {
         val locationDAO = LocationDatabase.getDatabase(application, viewModelScope).locationDAO()
         repository = LocationRepository(locationDAO)
         allLocations = repository.allLocations
+        totalLocationCount = repository.totalLocationCount
     }
 
     fun insert(location: Location) = viewModelScope.launch(Dispatchers.IO) {
+        Log.i("LocationViewModel", "insert Location: ${location}")
         repository.insert(location)
     }
 
     fun deleteAll() = viewModelScope.launch(Dispatchers.IO) {
+        Log.i("LocationViewModel", "deleteAll")
         repository.deleteAll()
     }
 
     fun deleteById(id: Int) = viewModelScope.launch(Dispatchers.IO) {
         repository.deleteById(id)
+        TODO("implement this eventually")
     }
 }

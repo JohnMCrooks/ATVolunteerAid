@@ -13,6 +13,9 @@ interface LocationDAO {
     @Query ("SELECT * FROM location_table ORDER BY date_added DESC")
     fun getAllLocations(): LiveData<List<Location>>
 
+    @Query ("SELECT COUNT(*) FROM location_table")
+    fun getLocationCount(): LiveData<Int>
+
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertLocation(location: Location)
 

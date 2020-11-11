@@ -1,6 +1,7 @@
 package com.skoorc.atvolunteeraid.database
 
 import android.content.Context
+import android.util.Log
 import androidx.room.Database
 import androidx.room.Room
 import androidx.room.RoomDatabase
@@ -9,7 +10,7 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 // DB reference --> https://developer.android.com/codelabs/android-room-with-a-view-kotlin#10
-@Database(entities = arrayOf(Location::class), version = 1, exportSchema = false)
+@Database(entities = arrayOf(Location::class), version = 2, exportSchema = false)
 abstract class LocationDatabase: RoomDatabase() {
     abstract fun locationDAO(): LocationDAO
 
@@ -27,7 +28,7 @@ abstract class LocationDatabase: RoomDatabase() {
                     context.applicationContext,
                     LocationDatabase::class.java,
                     "location_database"
-                ).addCallback(LocationDatabaseCallback(scope)).build()
+                ).addCallback(LocationDatabaseCallback(scope)).fallbackToDestructiveMigration().build()
                 INSTANCE = instance
                 // return instance
                 instance
@@ -48,13 +49,23 @@ abstract class LocationDatabase: RoomDatabase() {
             }
         }
         suspend fun prePopulateDatabase(locationDao: LocationDAO) {
+            Log.i("DatabaseInit", "pre-populating database")
             locationDao.deleteAll()
-            var locationPlaceholder = Location( "35.467338", "-82.572414", "11/1/2020")
+            var locationPlaceholder = Location( "35.467338", "-82.572414", "11/1/2020", "Trash")
             locationDao.insertLocation(locationPlaceholder)
-            var locationPlaceholder2 = Location( "39.060910", "-76.517500", "11/2/2020")
+            var locationPlaceholder2 = Location( "39.060910", "-76.517500", "11/2/2020", "Incorrect blaze")
             locationDao.insertLocation(locationPlaceholder2)
-            locationPlaceholder2.date = "11/1/2020"
+            locationPlaceholder2.date = "11/3/2020"
             locationPlaceholder2.latitude = "39.050310"
+            locationPlaceholder2.type = "Trail Damage"
+            locationPlaceholder = Location( "35.407338", "-82.5072414", "11/4/2020", "Bad Blaze")
+            locationDao.insertLocation(locationPlaceholder)
+            locationPlaceholder = Location( "35.497338", "-82.772414", "11/5/2020", "Poop")
+            locationDao.insertLocation(locationPlaceholder)
+            locationPlaceholder = Location( "35.50", "-82.70", "11/6/2020", "Tree Blocking Trail")
+            locationDao.insertLocation(locationPlaceholder)
+            locationPlaceholder = Location( "35.52", "-82.72", "11/7/2020", "More Poop")
+            locationDao.insertLocation(locationPlaceholder)
             locationDao.insertLocation(locationPlaceholder2)
         }
     }

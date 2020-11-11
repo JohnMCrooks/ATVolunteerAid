@@ -8,5 +8,11 @@
     <string name="view_map">View Map</string>
     <string name="button_save">Save</string>
     <string name="empty_not_saved">Location not saved because something went wrong</string>
-    <string name="title_activity_maps">Map</string>
+    <string name="title_activity_maps">Trail issues</string>
+    <string name="maps_api_key">AIzaSyCl4_regfJ7SnzRyLSfbE8K-fcy_TWaSrE</string>
+    <string name="list_header_total">Total Items:</string>
+    <string name="report_trash">Trash</string>
+    <string name="report_bad_trail_marker">Bad Trail Marker</string>
+    <string name="report_trail_blocked">Trail Blocked</string>
+    <string name="report_poop">Poop</string>
 </resources>

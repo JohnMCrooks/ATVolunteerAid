@@ -3,6 +3,8 @@ package com.skoorc.atvolunteeraid.overview
 import android.Manifest
 import android.content.Context
 import android.content.pm.PackageManager
+import android.icu.text.SimpleDateFormat
+import android.icu.util.Calendar
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -12,14 +14,14 @@ import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.ViewModelProvider
-import androidx.navigation.*
+import androidx.navigation.findNavController
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
-import com.google.android.material.snackbar.Snackbar
 import com.skoorc.atvolunteeraid.R
 import com.skoorc.atvolunteeraid.database.LocationViewModel
-import kotlinx.android.synthetic.main.fragment_overview.*
 import kotlinx.android.synthetic.main.fragment_overview.view.*
+import java.text.DateFormat
+import java.util.*
 
 class OverviewFragment: Fragment() {
     private val TAG = "fragmentOverview"
@@ -43,13 +45,13 @@ class OverviewFragment: Fragment() {
         layout = view
 
         view.markLocationButton.setOnClickListener {
+            Log.i(TAG, "Mark location clicked")
             onClickReportLocation(it)
         }
         view.listButton.setOnClickListener {
             view.findNavController().navigate(R.id.action_overviewFragment_to_ListFragment)
         }
         view.mapButton.setOnClickListener {
-            Toast.makeText(context, "Map Button aint rigged up yet", Toast.LENGTH_SHORT)
             view.findNavController().navigate(R.id.action_overviewFragment_to_mapsActivity)
         }
     }
@@ -61,6 +63,10 @@ class OverviewFragment: Fragment() {
     }
 
     fun logLastLocationSlim() {
+        Log.d(TAG, "Entering LogLastLocationSlim")
+        //TODO when report button is clicked, inflate fragment w/ problems for user to click on to report (trail blocked, trash, poop, Bad/missing Markers)
+
+// **** Testing the DB DAO/insert functionality since button is working (generates toast) and data is being retrieved from DB w/o issue  *****
         if (ActivityCompat.checkSelfPermission(
                 getContext() as Context,
                 Manifest.permission.ACCESS_FINE_LOCATION
@@ -71,18 +77,26 @@ class OverviewFragment: Fragment() {
         ) {
             Log.d(TAG, "Don't have the correct permissions")
         } else {
+            Log.i(TAG, "Permissions already exist")
             //This won't work well on an emulator, use a real device to verify
             fusedLocationClient.lastLocation
                 .addOnCompleteListener {
                     if (it.isSuccessful) {
                         Log.i(TAG, "Success in scope: ${it.result.longitude}, ${it.result.latitude}")
-                        val newLocation = com.skoorc.atvolunteeraid.database.Location(it.result.latitude.toString(), it.result.longitude.toString(), "11/1/2020")
+                        val newLocation = com.skoorc.atvolunteeraid.database.Location(it.result.latitude.toString(), it.result.longitude.toString(),  getDateString(),
+                            type = "trash"
+                        )
+                        Log.d(TAG, "New Location: $newLocation")
                         locationViewModel.insert(newLocation)
                         Log.i(TAG, "Location Added")
+                    } else {
+                        Log.i(TAG, "Location Listener failed or returned null")
                     }
                 }
         }
     }
+
+
 // ***********************************
 // THIS IS  WORKING DO NOT DELETE!!!
 // ***********************************
@@ -115,4 +129,12 @@ class OverviewFragment: Fragment() {
 //                }
 //        }
 //    }
+    fun getDateString(): String {
+        val date: Date = Calendar.getInstance().time
+        Log.i("Date", "Date string format: ${date.toString()}")
+        val dateFormat: SimpleDateFormat = SimpleDateFormat("dd/MM/yyyy")
+        val strDate = dateFormat.format(date)
+        Log.i("Date", "Date string format: ${strDate}")
+        return strDate
+    }
 }

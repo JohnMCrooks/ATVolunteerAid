@@ -7,16 +7,52 @@
     android:layout_height="match_parent"
     tools:context=".MainActivity">
 
+
+    <TextView
+        android:id="@+id/listCountLabel"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/big_padding"
+        android:text="@string/list_header_total"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/divider"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="# of Items in list:" />
+
+    <TextView
+        android:id="@+id/listCountTotalTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="@dimen/big_padding"
+        android:textSize="18sp"
+        app:layout_constraintBottom_toBottomOf="@+id/divider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.0"
+        app:layout_constraintStart_toEndOf="@+id/listCountLabel"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="12" />
+
+    <View
+        android:id="@+id/divider"
+        android:layout_width="409dp"
+        android:layout_height="1dp"
+        android:background="?android:attr/listDivider"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintBottom_toBottomOf="@+id/listCountLabel"
+        tools:layout_editor_absoluteY="55dp" />
+
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview"
         android:layout_width="0dp"
         android:layout_height="0dp"
-        tools:listitem="@layout/recyclerview_item"
         android:padding="@dimen/big_padding"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintLeft_toLeftOf="parent"
         app:layout_constraintRight_toRightOf="parent"
-        app:layout_constraintTop_toTopOf="parent" />
+        app:layout_constraintTop_toBottomOf="@+id/listCountTotalTextView"
+        tools:listitem="@layout/recyclerview_item" />
 
     <com.google.android.material.floatingactionbutton.FloatingActionButton
         android:id="@+id/fab"

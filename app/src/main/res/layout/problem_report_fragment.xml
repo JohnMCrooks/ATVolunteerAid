@@ -1,0 +1,60 @@
+<?xml version="1.0" encoding="utf-8"?>
+
+<LinearLayout xmlns:android="http://schemas.android.com/apk/res/android"
+    xmlns:tools="http://schemas.android.com/tools"
+    android:layout_width="match_parent"
+    android:layout_height="match_parent"
+    android:orientation="vertical">
+
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight=".5"
+        android:orientation="horizontal"
+        android:weightSum="1.0">
+        <Button
+            android:id="@+id/button"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight=".5"
+            android:text="@string/report_poop"
+            android:drawableBottom="@drawable/poop_icon"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
+
+        <Button
+            android:id="@+id/button2"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight=".5"
+            android:text="@string/report_trail_blocked"
+            android:drawableBottom="@drawable/tree_down_icon"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
+    </LinearLayout>
+    <LinearLayout
+        android:layout_width="match_parent"
+        android:layout_height="match_parent"
+        android:layout_weight="0.5"
+        android:orientation="horizontal"
+        >
+
+        <Button
+            android:id="@+id/button3"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight=".5"
+            android:text="@string/report_bad_trail_marker"
+            android:drawableBottom="@drawable/trail_blaze_icon"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
+
+        <Button
+            android:id="@+id/button4"
+            android:layout_width="0dp"
+            android:layout_height="fill_parent"
+            android:layout_weight=".5"
+            android:text="@string/report_trash"
+            android:drawableBottom="@drawable/trash_icon"
+            style="@style/Widget.MaterialComponents.Button.OutlinedButton"/>
+    </LinearLayout>
+
+
+</LinearLayout>

@@ -7,38 +7,53 @@
     android:layout_height="match_parent"
     tools:context=".overview.OverviewFragment">
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/markLocationButton"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="200dp"
         android:layout_height="80dp"
-        android:layout_marginEnd="104dp"
+        android:theme="@style/customButton"
         android:text="@string/mark_location"
         app:layout_constraintBottom_toBottomOf="parent"
         app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.921" />
+        app:layout_constraintHorizontal_bias="0.497"
+        app:layout_constraintStart_toStartOf="parent"
+        app:layout_constraintTop_toBottomOf="@+id/mapButton"
+        app:layout_constraintVertical_bias="0.336"
+        app:strokeColor="#000000"
+        app:strokeWidth="2dp" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/listButton"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="200dp"
         android:layout_height="80dp"
-        android:layout_marginStart="104dp"
         android:text="@string/list_of_trash"
+        android:theme="@style/customButton"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.608" />
+        app:layout_constraintTop_toBottomOf="@+id/atLogo"
+        app:layout_constraintVertical_bias="0.143"
+        app:strokeColor="#000000"
+        app:strokeWidth="2dp" />
 
-    <Button
+    <com.google.android.material.button.MaterialButton
         android:id="@+id/mapButton"
+        style="@style/Widget.MaterialComponents.Button.OutlinedButton"
         android:layout_width="200dp"
         android:layout_height="80dp"
-        android:layout_marginStart="104dp"
         android:text="@string/view_map"
+        android:theme="@style/customButton"
         app:layout_constraintBottom_toBottomOf="parent"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintHorizontal_bias="0.497"
         app:layout_constraintStart_toStartOf="parent"
-        app:layout_constraintTop_toTopOf="parent"
-        app:layout_constraintVertical_bias="0.766" />
+        app:layout_constraintTop_toBottomOf="@+id/listButton"
+        app:layout_constraintVertical_bias="0.172"
+        app:strokeColor="#000000"
+        app:strokeWidth="2dp" />
 
     <ImageView
         android:id="@+id/atLogo"

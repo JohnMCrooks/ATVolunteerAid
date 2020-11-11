@@ -17,7 +17,9 @@ class LocationListAdapter internal constructor(context: Context):
     private val inflater: LayoutInflater = LayoutInflater.from(context)
     private var locations = emptyList<Location>()
     inner class LocationViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView){
-        val locationItemView: TextView = itemView.findViewById(R.id.textView)
+        val dateTextView: TextView = itemView.findViewById(R.id.dateTextView)
+        val locationItemView: TextView = itemView.findViewById(R.id.latLongTextView)
+        val typeTextView: TextView = itemView.findViewById(R.id.typeTextView)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LocationViewHolder {
@@ -27,8 +29,10 @@ class LocationListAdapter internal constructor(context: Context):
 
     override fun onBindViewHolder(holder: LocationViewHolder, position: Int) {
         val current = locations[position]
-        val displayText = "${current.id} - ${current.latitude}, ${current.longitude} - ${current.date}"
-        holder.locationItemView.text = displayText
+        val latLong = "${current.latitude}, ${current.longitude}"
+        holder.dateTextView.text = current.date
+        holder.locationItemView.text = latLong
+        holder.typeTextView.text = current.type
     }
 
     internal fun setLocations(locations: List<Location>){

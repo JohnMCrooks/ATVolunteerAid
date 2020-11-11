@@ -2,18 +2,24 @@ package com.skoorc.atvolunteeraid.overview
 
 import androidx.appcompat.app.AppCompatActivity
 import android.os.Bundle
+import android.util.Log
+import androidx.lifecycle.Observer
+import androidx.lifecycle.observe
 
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
+import com.google.android.gms.maps.model.Marker
 import com.google.android.gms.maps.model.MarkerOptions
 import com.skoorc.atvolunteeraid.R
+import com.skoorc.atvolunteeraid.database.LocationViewModel
 
-class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
+internal class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
     private lateinit var mMap: GoogleMap
+    private lateinit var locationViewModel: LocationViewModel
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -34,11 +40,25 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
      * installed Google Play services and returned to the app.
      */
     override fun onMapReady(googleMap: GoogleMap) {
-        mMap = googleMap
 
+        locationViewModel = LocationViewModel(application)
+        mMap = googleMap
+        val locationList = locationViewModel.allLocations
+        var firstlatLong: LatLng? = null
+        locationList.observe( this, Observer { it ->
+            it.forEach {
+                Log.i("Maps", "$it")
+                var latLong: LatLng = LatLng(it.latitude.toDouble(), it.longitude.toDouble())
+                    if (firstlatLong == null) {
+                        firstlatLong = latLong
+                        Log.i("Maps", "First LatLng = ${firstlatLong}")
+                    }
+                val title: String = "${it.type} - ${it.date}"
+                mMap.addMarker(MarkerOptions().position(latLong).title(title))
+            }
+         })
         // Add a marker in Sydney and move the camera
-        val sydney = LatLng(-34.0, 151.0)
-        mMap.addMarker(MarkerOptions().position(sydney).title("Marker in Sydney"))
-        mMap.moveCamera(CameraUpdateFactory.newLatLng(sydney))
+        val eastCoastUSA = LatLng(39.05, -82.0)
+        mMap.moveCamera(CameraUpdateFactory.newLatLng(eastCoastUSA))
     }
 }
