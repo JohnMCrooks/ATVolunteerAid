@@ -1,8 +1,6 @@
 package com.skoorc.atvolunteeraid.overview
 
-import android.content.Context
 import android.os.Bundle
-import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -12,11 +10,9 @@ import androidx.lifecycle.Observer
 import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
-import com.google.android.gms.location.LocationServices
 import com.skoorc.atvolunteeraid.R
 import com.skoorc.atvolunteeraid.database.LocationListAdapter
 import com.skoorc.atvolunteeraid.database.LocationViewModel
-import kotlinx.android.synthetic.main.fragment_list_view.*
 import kotlinx.android.synthetic.main.fragment_list_view.view.*
 
 //Recycler view references here
@@ -26,6 +22,8 @@ class ListFragment: Fragment() {
     private lateinit var layout: View
     private lateinit var locationViewModel: LocationViewModel
 
+    //TODO: Add Individual delete buttons to recyclerList somehow, maybe swipe to delete if it's not too hard?
+    //TODO: Tap on individual item from list to open map on that pin marker.
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,

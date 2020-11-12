@@ -1,6 +1,7 @@
 package com.skoorc.atvolunteeraid.util
 
 import android.view.View
+import android.widget.Toast
 import com.google.android.material.snackbar.Snackbar
 
 fun View.showSnackbar(msgId: Int, length: Int) {
@@ -31,5 +32,12 @@ fun View.showSnackbar(
         snackbar.setAction(actionMessage) {
             action(this)
         }.show()
+    }
+}
+fun View.showToast(message: String, length: Int){
+    if (length == 0) {
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+    } else {
+        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
     }
 }

@@ -49,36 +49,4 @@ class OverviewFragment: Fragment() {
             view.findNavController().navigate(R.id.action_overviewFragment_to_mapsActivity)
         }
     }
-// ***********************************
-// THIS IS  WORKING DO NOT DELETE!!!
-// ***********************************
-//    fun getLastLocation_OG() {
-//        if (ActivityCompat.checkSelfPermission(
-//                getContext() as Context,
-//                Manifest.permission.ACCESS_FINE_LOCATION
-//            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-//                getContext() as Context,
-//                Manifest.permission.ACCESS_COARSE_LOCATION
-//            ) != PackageManager.PERMISSION_GRANTED
-//        ) {
-//            return
-//        } else {
-//            Log.i(TAG, "All necessary permissions granted proceeding to get new location")
-//            fusedLocationClient.lastLocation
-//                .addOnCompleteListener { taskLocation ->
-//                    Log.i(TAG, "inside location listener")
-//                    if (taskLocation.isSuccessful) {
-//                        val location = taskLocation.result
-//                        var listTextView = layout.tempTextView
-//                        Log.i(TAG, "Random num to show it's running: ${Math.random()}")
-//                        Log.i(TAG, "Lat: ${location.latitude}")
-//                        Log.i(TAG, "Long: ${location.longitude}")
-//                        val textPlaceholder =  "${listTextView.text} \n ${location.latitude}, ${location.longitude}"
-//                         listTextView.text = textPlaceholder
-//                    } else {
-//                        Log.i(TAG, "No location detected")
-//                    }
-//                }
-//        }
-//    }
 }
