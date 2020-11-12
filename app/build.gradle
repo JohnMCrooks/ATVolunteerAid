@@ -65,11 +65,16 @@ dependencies {
     implementation "androidx.room:room-runtime:$version_room"
     implementation "androidx.room:room-ktx:$version_room"
     kapt "androidx.room:room-compiler:$version_room"
+    kapt "com.android.databinding:compiler:3.2.0-alpha10"
     implementation "androidx.lifecycle:lifecycle-livedata-ktx:2.2.0"
     implementation "android.arch.lifecycle:extensions:1.1.1"
     implementation "androidx.lifecycle:lifecycle-viewmodel-ktx:2.2.0"
     implementation "androidx.lifecycle:lifecycle-extensions:$version_lifecycle_extensions"
     androidTestImplementation "androidx.room:room-testing:$version_room"
+    // Retrofit
+    implementation "com.squareup.retrofit2:retrofit:$version_retrofit"
+    implementation "com.squareup.retrofit2:adapter-rxjava2:$version_retrofit"
+    implementation "com.squareup.retrofit2:converter-moshi:$version_retrofit"
     // Location Services -- This was non-breaking previously
     implementation 'com.google.android.gms:play-services-location:17.1.0'
     implementation 'com.google.android.gms:play-services-maps:17.0.0'

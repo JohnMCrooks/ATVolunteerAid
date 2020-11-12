@@ -18,6 +18,7 @@ Goals:
     - https://developer.android.com/jetpack/guide
     - https://www.raywenderlich.com/636803-mvvm-and-databinding-android-design-patterns
     - https://medium.com/@er.ankitbisht/mvvm-model-view-viewmodel-kotlin-google-jetpack-f02ec7754854
+    - https://proandroiddev.com/mvvm-with-kotlin-android-architecture-components-dagger-2-retrofit-and-rxandroid-1a4ebb38c699
 
 ## LOCAL MVP 1.1.1 - Update Schema for
 - Update Schema v3 - Might require more research on best way to setup user/problem relationship but the Goal is to
