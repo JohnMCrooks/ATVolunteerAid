@@ -1,4 +1,4 @@
-package com.skoorc.atvolunteeraid.overview
+package com.skoorc.atvolunteeraid.view
 
 import android.os.Bundle
 import android.util.Log
@@ -11,7 +11,7 @@ import com.google.android.gms.maps.SupportMapFragment
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
 import com.skoorc.atvolunteeraid.R
-import com.skoorc.atvolunteeraid.database.LocationViewModel
+import com.skoorc.atvolunteeraid.viewmodel.LocationViewModel
 
 internal class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
 
@@ -38,7 +38,8 @@ internal class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
      */
     override fun onMapReady(googleMap: GoogleMap) {
 
-        locationViewModel = LocationViewModel(application)
+        locationViewModel =
+            LocationViewModel(application)
         mMap = googleMap
         val locationList = locationViewModel.allLocations
         var firstlatLong: LatLng? = null

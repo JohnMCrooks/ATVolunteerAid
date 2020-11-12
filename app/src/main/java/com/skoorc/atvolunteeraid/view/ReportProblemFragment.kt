@@ -1,4 +1,4 @@
-package com.skoorc.atvolunteeraid.overview
+package com.skoorc.atvolunteeraid.view
 
 import android.Manifest
 import android.content.Context
@@ -19,7 +19,8 @@ import androidx.navigation.findNavController
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
 import com.skoorc.atvolunteeraid.R
-import com.skoorc.atvolunteeraid.database.LocationViewModel
+import com.skoorc.atvolunteeraid.viewmodel.LocationViewModel
+import com.skoorc.atvolunteeraid.model.Location
 import java.util.*
 
 class ReportProblemFragment: Fragment() {
@@ -78,7 +79,13 @@ class ReportProblemFragment: Fragment() {
                 .addOnCompleteListener {
                     if (it.isSuccessful) {
                         Log.i(TAG, "Success in scope: ${it.result.longitude}, ${it.result.latitude}")
-                        val newLocation = com.skoorc.atvolunteeraid.database.Location(it.result.latitude.toString(), it.result.longitude.toString(),  getDateString(), problemType)
+                        val newLocation =
+                            Location(
+                                it.result.latitude.toString(),
+                                it.result.longitude.toString(),
+                                getDateString(),
+                                problemType
+                            )
                         Log.d(TAG, "New Location: $newLocation")
                         locationViewModel.insert(newLocation)
                         Log.i(TAG, "Location Added")

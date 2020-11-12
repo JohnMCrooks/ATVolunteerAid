@@ -1,4 +1,4 @@
-package com.skoorc.atvolunteeraid.overview
+package com.skoorc.atvolunteeraid.view
 
 import android.os.Bundle
 import android.view.LayoutInflater
@@ -11,8 +11,8 @@ import androidx.lifecycle.ViewModelProvider
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.skoorc.atvolunteeraid.R
-import com.skoorc.atvolunteeraid.database.LocationListAdapter
-import com.skoorc.atvolunteeraid.database.LocationViewModel
+import com.skoorc.atvolunteeraid.viewmodel.LocationListAdapter
+import com.skoorc.atvolunteeraid.viewmodel.LocationViewModel
 import kotlinx.android.synthetic.main.fragment_list_view.view.*
 
 //Recycler view references here

@@ -1,10 +1,11 @@
-package com.skoorc.atvolunteeraid.database
+package com.skoorc.atvolunteeraid.model
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import com.skoorc.atvolunteeraid.model.Location
 
 //https://developer.android.com/codelabs/android-room-with-a-view-kotlin#10
 @Dao

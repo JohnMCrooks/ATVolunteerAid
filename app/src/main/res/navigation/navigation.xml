@@ -6,7 +6,7 @@
     app:startDestination="@id/overviewFragment">
     <fragment
         android:id="@+id/overviewFragment"
-        android:name="com.skoorc.atvolunteeraid.overview.OverviewFragment"
+        android:name="com.skoorc.atvolunteeraid.view.OverviewFragment"
         android:label="fragment_overview"
         tools:layout="@layout/fragment_overview" >
         <action
@@ -21,17 +21,17 @@
     </fragment>
     <fragment
         android:id="@+id/ListFragment"
-        android:name="com.skoorc.atvolunteeraid.overview.ListFragment"
+        android:name="com.skoorc.atvolunteeraid.view.ListFragment"
         android:label="fragment_list_view"
         tools:layout="@layout/fragment_list_view" />
     <activity
         android:id="@+id/mapsActivity"
-        android:name="com.skoorc.atvolunteeraid.overview.MapsActivity"
+        android:name="com.skoorc.atvolunteeraid.view.MapsActivity"
         android:label="activity_maps"
         tools:layout="@layout/activity_maps" />
     <fragment
         android:id="@+id/reportProblemFragment"
-        android:name="com.skoorc.atvolunteeraid.overview.ReportProblemFragment"
+        android:name="com.skoorc.atvolunteeraid.view.ReportProblemFragment"
         android:label="ReportProblemFragment"
         tools:layout="@layout/fragment_problem_report">
         <action

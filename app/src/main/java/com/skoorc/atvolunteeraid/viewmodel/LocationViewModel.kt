@@ -1,10 +1,13 @@
-package com.skoorc.atvolunteeraid.database
+package com.skoorc.atvolunteeraid.viewmodel
 
 import android.app.Application
 import android.util.Log
 import androidx.lifecycle.AndroidViewModel
 import androidx.lifecycle.LiveData
 import androidx.lifecycle.viewModelScope
+import com.skoorc.atvolunteeraid.database.LocationDatabase
+import com.skoorc.atvolunteeraid.model.LocationRepository
+import com.skoorc.atvolunteeraid.model.Location
 import kotlinx.coroutines.Dispatchers
 import kotlinx.coroutines.launch
 
@@ -19,8 +22,12 @@ class LocationViewModel(application: Application): AndroidViewModel(application)
     val totalLocationCount: LiveData<Int>
 
     init {
-        val locationDAO = LocationDatabase.getDatabase(application, viewModelScope).locationDAO()
-        repository = LocationRepository(locationDAO)
+        val locationDAO = LocationDatabase.getDatabase(
+            application,
+            viewModelScope
+        ).locationDAO()
+        repository =
+            LocationRepository(locationDAO)
         allLocations = repository.allLocations
         totalLocationCount = repository.totalLocationCount
     }
