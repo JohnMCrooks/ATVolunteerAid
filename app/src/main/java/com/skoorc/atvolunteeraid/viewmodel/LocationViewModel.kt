@@ -14,7 +14,7 @@ import kotlinx.coroutines.launch
 //https://developer.android.com/codelabs/android-room-with-a-view-kotlin#10
 class LocationViewModel(application: Application): AndroidViewModel(application) {
     private val repository: LocationRepository
-    //   Using LiveData and caching what getAlphabetizedWords returns has several benefits:
+    //   Using LiveData and caching what's returned has several benefits:
     // - We can put an observer on the data (instead of polling for changes) and only update the
     //   the UI when the data actually changes.
     // - Repository is completely separated from the UI through the ViewModel.
