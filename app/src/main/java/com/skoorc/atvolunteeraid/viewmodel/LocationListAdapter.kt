@@ -1,13 +1,13 @@
-package com.skoorc.atvolunteeraid.database
+package com.skoorc.atvolunteeraid.viewmodel
 
 import android.content.Context
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
-import androidx.appcompat.view.menu.ActionMenuItemView
 import androidx.recyclerview.widget.RecyclerView
 import com.skoorc.atvolunteeraid.R
+import com.skoorc.atvolunteeraid.model.Location
 
 //Recycler view references here
 //https://developer.android.com/codelabs/android-room-with-a-view-kotlin#12

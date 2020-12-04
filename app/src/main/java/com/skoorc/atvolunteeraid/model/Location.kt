@@ -1,4 +1,4 @@
-package com.skoorc.atvolunteeraid.database
+package com.skoorc.atvolunteeraid.model
 
 import androidx.room.ColumnInfo
 import androidx.room.Entity

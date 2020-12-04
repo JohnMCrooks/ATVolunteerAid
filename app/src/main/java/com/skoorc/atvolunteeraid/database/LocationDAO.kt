@@ -5,6 +5,7 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
+import com.skoorc.atvolunteeraid.model.Location
 
 //https://developer.android.com/codelabs/android-room-with-a-view-kotlin#10
 @Dao
@@ -15,6 +16,9 @@ interface LocationDAO {
 
     @Query ("SELECT COUNT(*) FROM location_table")
     fun getLocationCount(): LiveData<Int>
+
+    @Query ("SELECT * FROM location_table ORDER BY id DESC LIMIT 1")
+    fun getLatestLocation(): LiveData<Location>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertLocation(location: Location)

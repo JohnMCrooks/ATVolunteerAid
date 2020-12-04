@@ -2,7 +2,7 @@
 
 ### MVP 1.0 (completed 11/11/20):
 - Setup Local DB w/ Room
-- Simple Schema v2=(Id, Date, Lat, Long, problemType)
+- Simple Schema, single table, v2=(Id, Date, Lat, Long, problemType)
 - Request permissions from user for location uasge
 - Report problems (insert into DB)
 - Clear problems from DB
@@ -10,16 +10,21 @@
 - Navigation between List view, Map, Report Problem screens
 - Populate map with locations from database
 
-**MAKE A NEW BRANCH FOR EACH OF THESE**
+**DON"T FORGET TO USE A NEW BRANCH FOR EACH OF THESE**
 ## LOCAL MVP 1.1.0 - add common architectural design to the app
-- Refactor Fragments to use proper MVVM architecture (Model, View, ViewModel)
-- implement way to preserve app integrity on screen rotations
+Goals:
+- Refactor Fragments/Project to use databinding, MVVM architecture
+  - References:
+    - https://developer.android.com/jetpack/guide
+    - https://www.raywenderlich.com/636803-mvvm-and-databinding-android-design-patterns
+    - https://medium.com/@er.ankitbisht/mvvm-model-view-viewmodel-kotlin-google-jetpack-f02ec7754854
+    - https://proandroiddev.com/mvvm-with-kotlin-android-architecture-components-dagger-2-retrofit-and-rxandroid-1a4ebb38c699
 
 ## LOCAL MVP 1.1.1 - Update Schema for
 - Update Schema v3 - Might require more research on best way to setup user/problem relationship but the Goal is to
                      eventually allow users to sort/filter by their own reports, others reports, report type, etc.
----- table_user: uuid, date_joined
----- table_problemReport: uuid, Lat, Long, problemType, resolved, reportedBy (Join on user, many reports to one user)
+  - table_user: uuid, date_joined
+  - table_problemReport: uuid, Lat, Long, problemType, resolved, reportedBy (Join on user, many reports to one user)
 
 ## LOCAL MVP 1.1.2
 - Refactor recyclerView to use Cards for Problem info instead of TextView
