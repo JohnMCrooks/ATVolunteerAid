@@ -17,7 +17,7 @@ import com.skoorc.atvolunteeraid.viewmodel.LocationViewModel
 import com.skoorc.atvolunteeraid.viewmodel.LocationViewModelFactory
 
 internal class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
-
+    private val TAG = "Maps"
     private lateinit var mMap: GoogleMap
 
     override fun onCreate(savedInstanceState: Bundle?) {
@@ -43,21 +43,35 @@ internal class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         val locationViewModel = LocationViewModelFactory(baseContext).create(LocationViewModel::class.java)
         val locationList = locationViewModel.allLocations
         val newestLocation: LiveData<Location> = locationViewModel.getLatestLocation
+        val initialPinID =  intent?.getIntExtra("LOCATION_ID", -1)
+        val initialPinLatLngString = intent?.getStringExtra("LOCATION_LAT_LONG")?.split(",")
+        val initialPinLatLng: LatLng? = LatLng(initialPinLatLngString?.get(0)?.toDouble()!!,
+            initialPinLatLngString[1].toDouble())
+
+        Log.i(TAG, "testing PinID passed w/ intent $initialPinID")
+        Log.i(TAG, "testing Converted LatLong $initialPinLatLng")
 
         locationList.observe( this, Observer { it ->
             it.forEach {
-                Log.i("Maps", "$it")
+                Log.i(TAG, "$it")
                 var latLong: LatLng = LatLng(it.latitude.toDouble(), it.longitude.toDouble())
                 val title: String = "${it.type} - ${it.date}"
                 mMap.addMarker(MarkerOptions().position(latLong).title(title))
             }
          })
         newestLocation.observe( this, Observer { it ->
-            if (it != null) {
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(it.latitude.toDouble(), it.longitude.toDouble()), 12f))
-            } else {
-                val eastCoastUSA = LatLng(39.05, -82.0)
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(eastCoastUSA, 5f))
+            when(initialPinLatLng) {
+                null -> {
+                    if (it != null) {
+                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(it.latitude.toDouble(), it.longitude.toDouble()), 12f))
+                    } else {
+                        val eastCoastUSA = LatLng(39.05, -82.0)
+                        mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(eastCoastUSA, 5f))
+                    }
+                }
+                else -> {
+                    mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(initialPinLatLng, 12f))
+                }
             }
         })
     }

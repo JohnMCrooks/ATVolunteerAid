@@ -11,10 +11,14 @@
         tools:layout="@layout/fragment_overview" >
         <action
             android:id="@+id/action_overviewFragment_to_ListFragment"
-            app:destination="@id/ListFragment" />
+            app:destination="@id/ListFragment"
+            app:enterAnim="@anim/fragment_open_enter"
+            app:exitAnim="@anim/fragment_open_exit" />
         <action
             android:id="@+id/action_overviewFragment_to_mapsActivity"
-            app:destination="@id/mapsActivity" />
+            app:destination="@id/mapsActivity"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out" />
         <action
             android:id="@+id/action_overviewFragment_to_reportProblemFragment"
             app:destination="@id/reportProblemFragment" />
@@ -23,7 +27,13 @@
         android:id="@+id/ListFragment"
         android:name="com.skoorc.atvolunteeraid.view.ListFragment"
         android:label="fragment_list_view"
-        tools:layout="@layout/fragment_list_view" />
+        tools:layout="@layout/fragment_list_view" >
+        <action
+            android:id="@+id/action_ListFragment_to_mapsActivity"
+            app:destination="@id/mapsActivity"
+            app:enterAnim="@android:anim/fade_in"
+            app:exitAnim="@android:anim/fade_out"/>
+    </fragment>
     <activity
         android:id="@+id/mapsActivity"
         android:name="com.skoorc.atvolunteeraid.view.MapsActivity"

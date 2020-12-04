@@ -29,9 +29,9 @@ class LocationListAdapter internal constructor(context: Context, val listener: L
 
         override fun onClick(v: View?) {
             val recyclerPosition: Int = adapterPosition
-            val idValue = idTextView.text.toString().toInt()
+            val id = idTextView.text.toString().toInt()
             if (adapterPosition != RecyclerView.NO_POSITION) {
-                listener.onItemClick(recyclerPosition, idValue, locationItemView.text.toString())
+                listener.onItemClick(recyclerPosition, id, locationItemView.text.toString())
             }
         }
 

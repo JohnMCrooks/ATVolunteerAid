@@ -1,5 +1,6 @@
 package com.skoorc.atvolunteeraid.view
 
+import android.content.Intent
 import android.os.Bundle
 import android.view.LayoutInflater
 import android.view.View
@@ -8,6 +9,7 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
+import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.skoorc.atvolunteeraid.R
@@ -58,9 +60,12 @@ class ListFragment: Fragment(), LocationListAdapter.OnItemClickListener, Locatio
     }
 
     override fun onItemClick(recyclerPosition: Int, id: Int, location: String) {
-        //TODO Make this go to the Map, targeted on the pin it refers too.
-        val position = recyclerPosition + 1
-        Toast.makeText(context, "item clicked $position, ID: $id", Toast.LENGTH_SHORT).show()
+        //TODO Navigation to the map focused on the targeted pin.
+        Toast.makeText(context, "Let's go to the MAP!", Toast.LENGTH_SHORT).show()
+        val intent = Intent(requireContext(), MapsActivity::class.java)
+        intent.putExtra("LOCATION_ID", id)
+        intent.putExtra("LOCATION_LAT_LONG", location)
+        startActivity(intent)
     }
 
     override fun onItemLongClick(recyclerPosition: Int, idValue: Int) {
