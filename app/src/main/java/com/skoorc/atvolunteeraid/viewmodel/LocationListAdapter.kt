@@ -17,29 +17,40 @@ class LocationListAdapter internal constructor(context: Context, val listener: L
 
     private val inflater: LayoutInflater = LayoutInflater.from(context)
     private var locations = emptyList<Location>()
-    inner class LocationViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener {
+    inner class LocationViewHolder(itemView: View) : RecyclerView.ViewHolder(itemView), View.OnClickListener, View.OnLongClickListener {
         val dateTextView: TextView = itemView.findViewById(R.id.dateTextView)
         val locationItemView: TextView = itemView.findViewById(R.id.latLongTextView)
         val typeTextView: TextView = itemView.findViewById(R.id.typeTextView)
         val idTextView: TextView = itemView.findViewById(R.id.idTextView)
         init {
             itemView.setOnClickListener(this)
+            itemView.setOnLongClickListener(this)
         }
 
         override fun onClick(v: View?) {
             val recyclerPosition: Int = adapterPosition
             val idValue = idTextView.text.toString().toInt()
             if (adapterPosition != RecyclerView.NO_POSITION) {
-                listener.onItemClick(recyclerPosition, idValue)
+                listener.onItemClick(recyclerPosition, idValue, locationItemView.text.toString())
             }
         }
 
-        fun onLongClick(v: View?): Boolean {
-            TODO("Not yet implemented")
+        override fun onLongClick(v: View?): Boolean {
+            val recyclerPosition: Int = adapterPosition
+            val idValue = idTextView.text.toString().toInt()
+            return if (adapterPosition != RecyclerView.NO_POSITION) {
+                listener.onItemLongClick(recyclerPosition, idValue)
+                true
+            } else {
+                false
+            }
         }
     }
     interface OnItemClickListener {
-        fun  onItemClick(recyclerPosition: Int, idValue: Int)
+        fun  onItemClick(recyclerPosition: Int, id: Int, location: String)
+    }
+    interface OnItemLongClickListener {
+        fun  onItemLongClick(recyclerPosition: Int, idValue: Int)
     }
 
     override fun onCreateViewHolder(parent: ViewGroup, viewType: Int): LocationViewHolder {

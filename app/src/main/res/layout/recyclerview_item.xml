@@ -6,21 +6,6 @@
     android:layout_margin="4dp">
 
     <TextView
-        android:id="@+id/idLabel"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:padding="4dp"
-        android:text="@string/idLabel" />
-    <TextView
-        android:id="@+id/idTextView"
-        android:layout_width="wrap_content"
-        android:layout_height="wrap_content"
-        android:layout_weight="1"
-        android:padding="4dp"
-        tools:text="325" />
-
-    <TextView
         android:id="@+id/dateTextView"
         style="@style/word_title"
         android:layout_width="90dp"
@@ -32,6 +17,14 @@
         tools:text="11/2/2020" />
 
     <TextView
+        android:id="@+id/idTextView"
+        android:layout_width="wrap_content"
+        android:layout_height="wrap_content"
+        android:padding="4dp"
+        android:textAlignment="viewStart"
+        tools:text="325" />
+
+    <TextView
         android:id="@+id/typeTextView"
         style="@style/word_title"
         android:layout_width="wrap_content"
@@ -39,17 +32,20 @@
         android:background="@drawable/gradient"
         android:padding="4dp"
         android:paddingBottom="4dp"
+        android:textAlignment="viewStart"
         android:textSize="14sp"
         tools:text="Trash/Bio" />
 
     <TextView
         android:id="@+id/latLongTextView"
         style="@style/word_title"
-        android:layout_width="wrap_content"
+        android:layout_width="match_parent"
         android:layout_height="wrap_content"
         android:background="#FFFFFF"
         android:padding="8dp"
         android:paddingBottom="4dp"
-        android:textSize="14sp"
+        android:textAlignment="textEnd"
+        android:textSize="12sp"
         tools:text="34.53434, -83.123453" />
+
 </LinearLayout>

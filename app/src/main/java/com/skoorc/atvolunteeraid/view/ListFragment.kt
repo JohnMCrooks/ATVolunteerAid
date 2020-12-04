@@ -18,7 +18,7 @@ import kotlinx.android.synthetic.main.fragment_list_view.view.*
 
 //Recycler view references here
 //https://developer.android.com/codelabs/android-room-with-a-view-kotlin#12
-class ListFragment: Fragment(), LocationListAdapter.OnItemClickListener {
+class ListFragment: Fragment(), LocationListAdapter.OnItemClickListener, LocationListAdapter.OnItemLongClickListener {
     val TAG = "LocationListFragment"
     private lateinit var locationViewModel: LocationViewModel
     private lateinit var adapter: LocationListAdapter
@@ -47,7 +47,6 @@ class ListFragment: Fragment(), LocationListAdapter.OnItemClickListener {
         locationViewModel.totalLocationCount.observe(viewLifecycleOwner, Observer {totalCount ->
             locationCount.text = totalCount.toString()
         })
-
         return view
     }
 
@@ -58,9 +57,15 @@ class ListFragment: Fragment(), LocationListAdapter.OnItemClickListener {
         }
     }
 
-    override fun onItemClick(recyclerPosition: Int, idValue: Int) {
+    override fun onItemClick(recyclerPosition: Int, id: Int, location: String) {
+        //TODO Make this go to the Map, targeted on the pin it refers too.
         val position = recyclerPosition + 1
-        Toast.makeText(context, "item clicked $position, ID: $idValue", Toast.LENGTH_SHORT).show()
+        Toast.makeText(context, "item clicked $position, ID: $id", Toast.LENGTH_SHORT).show()
+    }
+
+    override fun onItemLongClick(recyclerPosition: Int, idValue: Int) {
+        //TODO Make this pop up a verification that the item has been fixed/removed/Cleaned up
+        Toast.makeText(context, "item LOOOONGGGGG clicked $recyclerPosition, ID: $idValue", Toast.LENGTH_SHORT).show()
         locationViewModel.deleteById(idValue)
     }
 }
