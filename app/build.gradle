@@ -82,6 +82,7 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-common-java8:2.2.0"
     androidTestImplementation "androidx.room:room-testing:$version_room"
     // Retrofit
+    implementation "org.jetbrains.anko:anko-common:0.10.8"
     implementation "com.squareup.retrofit2:retrofit:$version_retrofit"
     implementation "com.squareup.retrofit2:adapter-rxjava2:$version_retrofit"
     implementation "com.squareup.retrofit2:converter-moshi:$version_retrofit"

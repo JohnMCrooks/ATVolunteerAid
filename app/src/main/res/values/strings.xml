@@ -21,4 +21,5 @@
     <string name="report_bad_trail_marker_button_toast">The bad trail marker has been reported! </string>
     <string name="report_trail_blocked_button_toast">The trail blockage has been reported! </string>
     <string name="report_poop_button_toast">The poop on the trail has been reported! </string>
+    <string name="idLabel">ID:</string>
 </resources>

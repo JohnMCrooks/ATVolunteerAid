@@ -40,9 +40,8 @@ class LocationViewModel(context: Context): ViewModel() {
     }
 
     fun deleteById(id: Int) = viewModelScope.launch(Dispatchers.IO) {
-        Log.i("LocationViewModel", "deleteByID")
+        Log.i("LocationViewModel", "deleteByID $id")
         locationRepo.deleteById(id)
-        TODO("implement this eventually")
     }
 }
 
