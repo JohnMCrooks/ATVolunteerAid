@@ -16,4 +16,9 @@
     <string name="report_poop_button_label">Poop</string>
     <string name="thanks_toast">Thanks For helping out!</string>
     <string name="error_msg_empty_not_saved">Location not saved, something went wrong</string>
+    <!-- Report Toast messages -->
+    <string name="report_trash_button_toast">The trash on the trail has been reported! </string>
+    <string name="report_bad_trail_marker_button_toast">The bad trail marker has been reported! </string>
+    <string name="report_trail_blocked_button_toast">The trail blockage has been reported! </string>
+    <string name="report_poop_button_toast">The poop on the trail has been reported! </string>
 </resources>

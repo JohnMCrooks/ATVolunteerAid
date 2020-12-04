@@ -1,33 +1,23 @@
 package com.skoorc.atvolunteeraid.view
 
-import android.Manifest
 import android.content.Context
-import android.content.pm.PackageManager
-import android.icu.text.SimpleDateFormat
-import android.icu.util.Calendar
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
-import android.widget.Toast
-import androidx.core.app.ActivityCompat
+import android.widget.Toast.LENGTH_SHORT
 import androidx.fragment.app.Fragment
-import androidx.lifecycle.ViewModelProvider
 import androidx.navigation.findNavController
-import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
 import com.skoorc.atvolunteeraid.R
-import com.skoorc.atvolunteeraid.viewmodel.LocationViewModel
-import com.skoorc.atvolunteeraid.model.Location
-import java.util.*
+import com.skoorc.atvolunteeraid.util.LocationUtil
+import com.skoorc.atvolunteeraid.util.showToast
 
 class ReportProblemFragment: Fragment() {
     private val TAG = "fragment_reportProblems"
-    private lateinit var layout: View
-    private lateinit var fusedLocationClient: FusedLocationProviderClient
-    private lateinit var locationViewModel: LocationViewModel
+    // TODO Add onResume and OnPause overrides to maintain context so app doesn't crash when
+    // coming back from background on All fragments/activities
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -35,72 +25,36 @@ class ReportProblemFragment: Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         Log.i(TAG,   "Entering Report Problem fragment")
-        fusedLocationClient = LocationServices.getFusedLocationProviderClient(context as Context)
-        locationViewModel = ViewModelProvider(this).get(LocationViewModel::class.java)
         return inflater.inflate(R.layout.fragment_problem_report, container, false)
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
         super.onViewCreated(view, savedInstanceState)
+        val actionReportToOverview = R.id.action_reportProblemFragment_to_overviewFragment
+        val reportedPoopToast = getString(R.string.report_poop_button_toast)
+        val reportTrailBlockageToast = getString(R.string.report_trail_blocked_button_toast)
+        val reportTrashToast = getString(R.string.report_trash_button_toast)
+        val reportBadTrailMarker = getString(R.string.report_bad_trail_marker_button_toast)
+
         view.findViewById<Button>(R.id.button_report_blocked_trail).setOnClickListener() {
-            logLastLocationSlim("Trail Blocked")
-            view.findNavController().navigate(R.id.action_reportProblemFragment_to_overviewFragment)
+            LocationUtil().logLastLocationSlim(getString(R.string.report_trail_blocked_button_label), context as Context)
+            view.findNavController().navigate(actionReportToOverview)
+            view.showToast(reportTrailBlockageToast, LENGTH_SHORT)
         }
         view.findViewById<Button>(R.id.button_report_poop).setOnClickListener() {
-            logLastLocationSlim("Poop")
-            view.findNavController().navigate(R.id.action_reportProblemFragment_to_overviewFragment)
+            LocationUtil().logLastLocationSlim("Poop", context as Context)
+            view.findNavController().navigate(actionReportToOverview)
+            view.showToast(reportedPoopToast, LENGTH_SHORT)
         }
         view.findViewById<Button>(R.id.button_report_trail_marker).setOnClickListener() {
-            logLastLocationSlim("Bad Trail Marker")
-            view.findNavController().navigate(R.id.action_reportProblemFragment_to_overviewFragment)
+            LocationUtil().logLastLocationSlim("Bad Trail Marker", context as Context)
+            view.findNavController().navigate(actionReportToOverview)
+            view.showToast(reportBadTrailMarker, LENGTH_SHORT)
         }
         view.findViewById<Button>(R.id.button_report_trash).setOnClickListener() {
-            logLastLocationSlim("Trash")
-            view.findNavController().navigate(R.id.action_reportProblemFragment_to_overviewFragment)
+            LocationUtil().logLastLocationSlim("Trash", context as Context)
+            view.findNavController().navigate(actionReportToOverview)
+            view.showToast(reportTrashToast, LENGTH_SHORT)
         }
-    }
-
-    fun logLastLocationSlim(problemType: String) {
-        Log.d(TAG, "Entering LogLastLocationSlim")
-
-        if (ActivityCompat.checkSelfPermission(
-                getContext() as Context,
-                Manifest.permission.ACCESS_FINE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED && ActivityCompat.checkSelfPermission(
-                getContext() as Context,
-                Manifest.permission.ACCESS_COARSE_LOCATION
-            ) != PackageManager.PERMISSION_GRANTED
-        ) {
-            Log.d(TAG, "Don't have the correct permissions")
-        } else {
-            Log.i(TAG, "Permissions already exist")
-            //This won't work well on an emulator, use a real device to verify
-            fusedLocationClient.lastLocation
-                .addOnCompleteListener {
-                    if (it.isSuccessful) {
-                        Log.i(TAG, "Success in scope: ${it.result.longitude}, ${it.result.latitude}")
-                        val newLocation =
-                            Location(
-                                it.result.latitude.toString(),
-                                it.result.longitude.toString(),
-                                getDateString(),
-                                problemType
-                            )
-                        Log.d(TAG, "New Location: $newLocation")
-                        locationViewModel.insert(newLocation)
-                        Log.i(TAG, "Location Added")
-                        Toast.makeText(context, "Problem Reported, Thanks!", Toast.LENGTH_SHORT).show()
-                    } else {
-                        Log.i(TAG, "Location Listener failed or returned null")
-                    }
-                }
-        }
-    }
-
-    fun getDateString(): String {
-        val date: Date = Calendar.getInstance().time
-        val dateFormat = SimpleDateFormat("dd/MM/yyyy")
-        val strDate = dateFormat.format(date)
-        return strDate
     }
 }

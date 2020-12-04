@@ -1,4 +1,4 @@
-package com.skoorc.atvolunteeraid.model
+package com.skoorc.atvolunteeraid.database
 
 import androidx.lifecycle.LiveData
 import androidx.room.Dao
@@ -16,6 +16,9 @@ interface LocationDAO {
 
     @Query ("SELECT COUNT(*) FROM location_table")
     fun getLocationCount(): LiveData<Int>
+
+    @Query ("SELECT * FROM location_table ORDER BY id DESC LIMIT 1")
+    fun getLatestLocation(): LiveData<Location>
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertLocation(location: Location)

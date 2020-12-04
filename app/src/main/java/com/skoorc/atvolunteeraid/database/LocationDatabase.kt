@@ -7,7 +7,6 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.skoorc.atvolunteeraid.model.Location
-import com.skoorc.atvolunteeraid.model.LocationDAO
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
