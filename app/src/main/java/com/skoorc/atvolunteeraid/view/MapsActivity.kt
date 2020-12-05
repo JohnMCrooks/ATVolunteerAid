@@ -1,24 +1,32 @@
 package com.skoorc.atvolunteeraid.view
 
+import android.os.Build
 import android.os.Bundle
 import android.util.Log
+import androidx.annotation.RequiresApi
 import androidx.appcompat.app.AppCompatActivity
-import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import com.google.android.gms.maps.CameraUpdateFactory
 import com.google.android.gms.maps.GoogleMap
 import com.google.android.gms.maps.OnMapReadyCallback
 import com.google.android.gms.maps.SupportMapFragment
+import com.google.android.gms.maps.model.BitmapDescriptor
+import com.google.android.gms.maps.model.BitmapDescriptorFactory
 import com.google.android.gms.maps.model.LatLng
 import com.google.android.gms.maps.model.MarkerOptions
+import com.google.maps.android.data.kml.KmlLayer
 import com.skoorc.atvolunteeraid.R
-import com.skoorc.atvolunteeraid.model.Location
 import com.skoorc.atvolunteeraid.viewmodel.LocationViewModel
 import com.skoorc.atvolunteeraid.viewmodel.LocationViewModelFactory
+import org.jetbrains.anko.doAsync
+import org.jetbrains.anko.uiThread
+import java.util.*
 
+//TODO Split this activity into proper view/viewModel to follow MVVM guidelines
 internal class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
-
+    private val TAG = "MapsActivity"
     private lateinit var mMap: GoogleMap
+    private val eastCoastUSA = LatLng(38.814512, -77.159754)
 
     override fun onCreate(savedInstanceState: Bundle?) {
         super.onCreate(savedInstanceState)
@@ -38,27 +46,73 @@ internal class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
      * it inside the SupportMapFragment. This method will only be triggered once the user has
      * installed Google Play services and returned to the app.
      */
+    @RequiresApi(Build.VERSION_CODES.Q)
     override fun onMapReady(googleMap: GoogleMap) {
         mMap = googleMap
         val locationViewModel = LocationViewModelFactory(baseContext).create(LocationViewModel::class.java)
         val locationList = locationViewModel.allLocations
-        val newestLocation: LiveData<Location> = locationViewModel.getLatestLocation
+
+        //TODO find a way to parse this programmatically rather than manually writing it out as an array
+        val atFileArray = arrayOf(R.raw.at_break_1, R.raw.at_break_2, R.raw.at_break_3,
+            R.raw.at_break_4, R.raw.at_break_5, R.raw.at_break_6, R.raw.at_break_7, R.raw.at_break_8,
+            R.raw.at_break_9, R.raw.at_break_10)
+        loadAtLayers(atFileArray)
+
+        val initialPinID =  intent?.getIntExtra("LOCATION_ID", -1)
+        val initialPinLatLngString: List<String>? = intent?.getStringExtra("LOCATION_LAT_LONG")?.split(",")
+        val initialPinLatLng: LatLng
+        initialPinLatLng = if (!initialPinLatLngString.isNullOrEmpty()) {
+            LatLng(
+                initialPinLatLngString[0].toDouble(),
+                initialPinLatLngString[1].toDouble()
+            )
+        } else {
+            eastCoastUSA
+        }
+        Log.i(TAG, "testing PinID passed w/ intent $initialPinID")
+        Log.i(TAG, "testing Converted LatLong $initialPinLatLng")
+
+        when(initialPinLatLng) {
+            eastCoastUSA -> mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(initialPinLatLng, 5f))
+            else -> {
+                Log.i(TAG, "Came from List view, zooming in on specified Pin")
+                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(initialPinLatLng, 10f))
+            }
+        }
 
         locationList.observe( this, Observer { it ->
             it.forEach {
-                Log.i("Maps", "$it")
-                var latLong: LatLng = LatLng(it.latitude.toDouble(), it.longitude.toDouble())
-                val title: String = "${it.type} - ${it.date}"
-                mMap.addMarker(MarkerOptions().position(latLong).title(title))
+                Log.i(TAG, "$it")
+                var latLong = LatLng(it.latitude.toDouble(), it.longitude.toDouble())
+                val title = "#${it.id}: ${it.type} - ${it.date}"
+                val iconBitMapDescriptor = getIconType(it.type.toLowerCase(Locale.ROOT))
+                mMap.addMarker(MarkerOptions().position(latLong).title(title).icon(iconBitMapDescriptor))
             }
          })
-        newestLocation.observe( this, Observer { it ->
-            if (it != null) {
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(LatLng(it.latitude.toDouble(), it.longitude.toDouble()), 12f))
-            } else {
-                val eastCoastUSA = LatLng(39.05, -82.0)
-                mMap.moveCamera(CameraUpdateFactory.newLatLngZoom(eastCoastUSA, 5f))
+    }
+
+    private fun loadAtLayers(at_file_array: Array<Int>) {
+        at_file_array.forEach {
+            doAsync {
+                val kml_segment = KmlLayer(mMap, it, baseContext)
+                uiThread {
+                    drawAtLayer(kml_segment)
+                }
             }
-        })
+        }
+    }
+
+    private fun drawAtLayer(kmlLayer: KmlLayer) {
+        kmlLayer.addLayerToMap()
+    }
+
+    private fun getIconType(problemType: String): BitmapDescriptor {
+        return when(problemType) {
+            "poop" -> BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_ROSE)
+            "trail blocked" ->  BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_RED)
+            "bad trail marker" -> BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_VIOLET)
+            "trash" -> BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_AZURE)
+            else -> BitmapDescriptorFactory.defaultMarker(BitmapDescriptorFactory.HUE_MAGENTA)
+        }
     }
 }

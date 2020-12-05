@@ -35,9 +35,9 @@ fun View.showSnackbar(
     }
 }
 fun View.showToast(message: String, length: Int){
-    if (length == 0) {
-        Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
-    } else {
-        Toast.makeText(context, message, Toast.LENGTH_LONG).show()
+    when (length) {
+        0 -> Toast.makeText(context, message, Toast.LENGTH_SHORT).show()
+        1 -> Toast.makeText(context, message, Toast.LENGTH_LONG).show()
+        else -> Toast.makeText(context, "something went horribly wrong... ", Toast.LENGTH_SHORT).show()
     }
 }

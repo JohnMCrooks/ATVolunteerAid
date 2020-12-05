@@ -1,6 +1,5 @@
 package com.skoorc.atvolunteeraid.viewmodel
 
-import android.app.Application
 import android.content.Context
 import android.util.Log
 import androidx.lifecycle.*
@@ -27,7 +26,7 @@ class LocationViewModel(context: Context): ViewModel() {
     // - Repository is completely separated from the UI through the ViewModel.
     val allLocations: LiveData<List<Location>> = locationRepo.allLocations.asLiveData()
     val totalLocationCount: LiveData<Int> = locationRepo.totalLocationCount.asLiveData()
-    val getLatestLocation: LiveData<Location> = locationRepo.getLatestLocation.asLiveData()
+//    val getLatestLocation: LiveData<Location> = locationRepo.getLatestLocation.asLiveData()
 
     fun insert(location: Location) = viewModelScope.launch(Dispatchers.IO) {
         Log.i("LocationViewModel", "insert Location: $location")
@@ -40,14 +39,12 @@ class LocationViewModel(context: Context): ViewModel() {
     }
 
     fun deleteById(id: Int) = viewModelScope.launch(Dispatchers.IO) {
-        Log.i("LocationViewModel", "deleteByID")
+        Log.i("LocationViewModel", "deleteByID $id")
         locationRepo.deleteById(id)
-        TODO("implement this eventually")
     }
 }
 
-class LocationViewModelFactory(context: Context): ViewModelProvider.Factory {
-    private val context = context
+class LocationViewModelFactory( val context: Context): ViewModelProvider.Factory {
     override fun <T : ViewModel?> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(LocationViewModel::class.java)){
             @Suppress("UNCHECKED_CAST")

@@ -28,5 +28,6 @@ class LocationRepository (private val locationDAO: LocationDAO) {
     @WorkerThread
     fun deleteById(id: Int) {
         locationDAO.deleteById(id)
+        Log.i("LocationRepository", "Location entry Deleted by ID $id")
     }
 }
