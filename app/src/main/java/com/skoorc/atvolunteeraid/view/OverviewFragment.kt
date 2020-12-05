@@ -1,6 +1,5 @@
 package com.skoorc.atvolunteeraid.view
 
-import android.content.Context
 import android.os.Bundle
 import android.util.Log
 import android.view.LayoutInflater
@@ -9,7 +8,6 @@ import android.view.ViewGroup
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.google.android.gms.location.FusedLocationProviderClient
-import com.google.android.gms.location.LocationServices
 import com.skoorc.atvolunteeraid.R
 import com.skoorc.atvolunteeraid.viewmodel.LocationViewModel
 import kotlinx.android.synthetic.main.fragment_overview.view.*

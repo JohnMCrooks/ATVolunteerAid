@@ -9,7 +9,6 @@ import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
 import androidx.lifecycle.Observer
-import androidx.navigation.findNavController
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.skoorc.atvolunteeraid.R
@@ -25,8 +24,6 @@ class ListFragment: Fragment(), LocationListAdapter.OnItemClickListener, Locatio
     private lateinit var locationViewModel: LocationViewModel
     private lateinit var adapter: LocationListAdapter
 
-    //TODO: Add Long press to delete recycler view items from List and DB
-    //TODO: Tap on individual item from list to open map on that pin marker.
     override fun onCreateView(
         inflater: LayoutInflater,
         container: ViewGroup?,
@@ -60,7 +57,8 @@ class ListFragment: Fragment(), LocationListAdapter.OnItemClickListener, Locatio
     }
 
     override fun onItemClick(recyclerPosition: Int, id: Int, location: String) {
-        //TODO Navigation to the map focused on the targeted pin.
+        //TODO Navigation to the map focused on the targeted pin. Look for a more refined way of
+        // doing this than passing extras in through the intent
         Toast.makeText(context, "Let's go to the MAP!", Toast.LENGTH_SHORT).show()
         val intent = Intent(requireContext(), MapsActivity::class.java)
         intent.putExtra("LOCATION_ID", id)
@@ -70,6 +68,7 @@ class ListFragment: Fragment(), LocationListAdapter.OnItemClickListener, Locatio
 
     override fun onItemLongClick(recyclerPosition: Int, idValue: Int) {
         //TODO Make this pop up a verification that the item has been fixed/removed/Cleaned up
+        //TODO Schema update should include resolved true/false. remove deletion (keep all entries for analytics eventually)
         Toast.makeText(context, "item LOOOONGGGGG clicked $recyclerPosition, ID: $idValue", Toast.LENGTH_SHORT).show()
         locationViewModel.deleteById(idValue)
     }
