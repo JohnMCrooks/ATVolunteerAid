@@ -22,6 +22,7 @@ import org.jetbrains.anko.doAsync
 import org.jetbrains.anko.uiThread
 import java.util.*
 
+//TODO Split this activity into proper view/viewModel to follow MVVM guidelines
 internal class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
     private val TAG = "MapsActivity"
     private lateinit var mMap: GoogleMap
