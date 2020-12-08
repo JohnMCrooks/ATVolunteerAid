@@ -1,13 +1,13 @@
 package com.skoorc.atvolunteeraid.util
 
 import android.Manifest
+import android.annotation.SuppressLint
 import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.pm.PackageManager
 import android.icu.text.SimpleDateFormat
 import android.icu.util.Calendar
 import android.util.Log
-import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -15,6 +15,7 @@ import com.skoorc.atvolunteeraid.model.Location
 import com.skoorc.atvolunteeraid.viewmodel.LocationViewModel
 import com.skoorc.atvolunteeraid.viewmodel.LocationViewModelFactory
 import java.util.*
+
 
 class LocationUtil {
     private lateinit var fusedLocationClient: FusedLocationProviderClient
@@ -71,10 +72,21 @@ class LocationUtil {
         }
     }
 
+    @SuppressLint("SimpleDateFormat")
     fun getDateString(): String {
         val date: Date = Calendar.getInstance().time
         val dateFormat = SimpleDateFormat("dd/MM/yyyy")
         val strDate = dateFormat.format(date)
         return strDate
+    }
+
+    fun getATResourceStringList(): List<String> {
+        var resourceIdArray = mutableListOf<String>()
+        for(i in 1..27) {
+            val name = "at_break_$i"
+            Log.i("LocationUtil", "List Entry: $i, $name")
+            resourceIdArray.add(i-1, name)
+        }
+        return resourceIdArray.toList()
     }
 }

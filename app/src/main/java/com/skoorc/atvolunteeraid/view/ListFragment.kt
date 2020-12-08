@@ -1,7 +1,9 @@
 package com.skoorc.atvolunteeraid.view
 
+import android.app.AlertDialog
 import android.content.Intent
 import android.os.Bundle
+import android.util.Log
 import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
@@ -69,7 +71,19 @@ class ListFragment: Fragment(), LocationListAdapter.OnItemClickListener, Locatio
     override fun onItemLongClick(recyclerPosition: Int, idValue: Int) {
         //TODO Make this pop up a verification that the item has been fixed/removed/Cleaned up
         //TODO Schema update should include resolved true/false. remove deletion (keep all entries for analytics eventually)
-        Toast.makeText(context, "item LOOOONGGGGG clicked $recyclerPosition, ID: $idValue", Toast.LENGTH_SHORT).show()
-        locationViewModel.deleteById(idValue)
+        Log.d(TAG,"Recycler item long clicked, position: $recyclerPosition, ID: $idValue")
+        val dialogueBuilder = AlertDialog.Builder(context)
+        dialogueBuilder.setMessage("Has the issue been cleaned up or fixed??")
+            .setCancelable(false)
+            .setPositiveButton("Yup, Issue resolved") { dialogue, _ ->
+                locationViewModel.deleteById(idValue)
+                dialogue.dismiss()
+            }
+            .setNegativeButton("Cancel") { dialogue, _ ->
+                dialogue.cancel()
+            }
+        val alert = dialogueBuilder.create()
+        alert.setTitle("Issue resolution")
+        alert.show()
     }
 }
