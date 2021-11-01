@@ -40,15 +40,15 @@ Goals:
 ## LOCAL MVP 1.1.4 - Optional based on interest/boredom levels
 - Refactor MapActivity to include fragment for changing data filters
 - research filters in the map view
----- toggle all/unresolved/resolved
----- toggle to show by Type of problem
+ - toggle all/unresolved/resolved
+ - toggle to show by Type of problem
 - Done - research customized tags (color/shapes/whatever) based on type
 - add photos of the issue to map w/ custom info windows - https://developers.google.com/maps/documentation/android-sdk/infowindows
----- update associated fragments/views/flows to include ability to add a photo
+ - update associated fragments/views/flows to include ability to add a photo
 
 
 ## REMOTE MVP 1.0 - API creation & synchronization strategies
 - Research & Implement backend for remotely hosted API -
----- Resources - https://kotlinlang.org/docs/reference/server-overview.html
----- simple hello world tutorial w/ Springboot - https://kotlinlang.org/docs/tutorials/spring-boot-restful.html
+ - Resources - https://kotlinlang.org/docs/reference/server-overview.html
+ - simple hello world tutorial w/ Springboot - https://kotlinlang.org/docs/tutorials/spring-boot-restful.html
 - Research & implement way to keep local DB and remote DB synced.
