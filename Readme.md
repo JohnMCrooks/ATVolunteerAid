@@ -1,3 +1,8 @@
+# ATVolunteerAid
+
+### About
+#### The idea for this app was born after talking with my brother in law who is a forest ranger in NC. He expressed concern that they were having a tough time with getting people reporting trail issues and jokingly wished for an app that could solve the problem. This seemed like a great app to dive into to help expand my Android development skills. I had never worked with the Maps SDK, or any firebase integrations in general, prior to starting this project. 
+
 # Roadmap
 
 ### MVP 1.0 (completed 11/11/20):
@@ -10,8 +15,13 @@
 - Navigation between List view, Map, Report Problem screens
 - Populate map with locations from database
 
-**DON"T FORGET TO USE A NEW BRANCH FOR EACH OF THESE**
-## LOCAL MVP 1.1.0 - add common architectural design to the app
+![AT_homescreen](https://user-images.githubusercontent.com/19226510/139610104-49161045-5712-4f47-969a-c912326a09fa.png) ![AT_problem_list](https://user-images.githubusercontent.com/19226510/139612066-b911c4eb-f933-4026-a58c-476241e7d170.png)
+
+![AT_mapview](https://user-images.githubusercontent.com/19226510/139610230-d6d6ae2a-c912-444f-b3f3-d6a49d03bae8.png) ![AT_Map_zoomemd_in](https://user-images.githubusercontent.com/19226510/139609939-378ce70b-016f-426f-b54a-f312b160854c.png)
+
+![AT_report_problem2](https://user-images.githubusercontent.com/19226510/139612138-22e0f523-53e7-4f01-9a62-f32ae9ef6356.png)
+
+## WIP - LOCAL MVP 1.1.0 - add common architectural design to the app 
 Goals:
 - Refactor Fragments/Project to use databinding, MVVM architecture
   - References:
@@ -32,15 +42,19 @@ Goals:
 
 ## LOCAL  MVP 1.1.3 - Map-centric upgrades
 - filter map markers to only show unresolved reports
-- Add User location/locate me button to map
-- Auto zoom to user location on map open
+- Add User location/locate me button to map (complete)
+- Auto zoom to user location on map open (complete)
 
 ## LOCAL MVP 1.1.4 - Optional based on interest/boredom levels
 - research filters in the map view
----- toggle all/unresolved/resolved
----- toggle to show by Type of problem
+  - toggle all/unresolved/resolved
+  - toggle to show by Type of problem
 - research customized tags (color/shapes/whatever) based on type
 
 ## REMOTE MVP 1.0 - API creation & synchronization strategies
 - Research & Implement backend for remotely hosted API - https://kotlinlang.org/docs/reference/server-overview.html
 - Reasearch & implement way to keep local DB and remote DB synced.
+
+
+
+
