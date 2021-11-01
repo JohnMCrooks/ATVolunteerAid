@@ -17,6 +17,8 @@
 
     Once you have your key (it starts with "AIza"), replace the "google_maps_key"
     string in this file.
+
+    **** Notice: This is being filled in at compile time from the app level build.gradle file  ****
     -->
-    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false"></string>
+    <string name="google_maps_key" templateMergeStrategy="preserve" translatable="false">Key_Placeholder</string>
 </resources>
