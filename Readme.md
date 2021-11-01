@@ -1,7 +1,7 @@
 # ATVolunteerAid
 
 ### About
-#### The idea for this app was born after talking with my brother in law who is a forest ranger in NC. He expressed concern that they were having a tough time with getting people reporting trail issues and jokingly wished for an app that could solve the problem. This seemed like a great app to dive into to help expand my Android development skills. I had never worked with the Maps SDK, or any firebase integrations in general, prior to starting this project. 
+#### The idea for this app was born after talking with my brother in law who is a forest ranger in NC. He expressed concern that they were having a tough time with getting people to report trail issues and jokingly wished for an app that could solve the problem. This seemed like a great app to dive into to help expand my Android development skills. I had never worked with the Maps SDK, or any firebase integrations in general, prior to starting this project. 
 
 # Roadmap
 
