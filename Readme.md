@@ -11,7 +11,7 @@
 - Request permissions from user for location uasge
 - Report problems (insert into DB)
 - Clear problems from DB
-- Use LiveData and recyclerView to populate entries (scrollable, but non-interactive)
+- Use LiveData and recyclerView to populate entries
 - Navigation between List view, Map, Report Problem screens
 - Populate map with locations from database
 
