@@ -53,48 +53,49 @@ abstract class LocationDatabase: RoomDatabase() {
             Log.i("DatabaseInit", "pre-populating database")
             locationDao.deleteAll()
             var locationPlaceholder = Location(
-                "35.467338",
-                "-82.572414",
-                "11/1/2020",
+                "37.6751636590001",
+                "-79.334662259",
+                "1/11/2021",
                 "Trash"
             )
             locationDao.insertLocation(locationPlaceholder)
             var locationPlaceholder2 = Location(
-                "39.060910",
-                "-76.517500",
-                "11/2/2020",
+                "43.5371713170001",
+                "-72.871504692",
+                "2/11/2021",
                 "Incorrect blaze"
             )
             locationDao.insertLocation(locationPlaceholder2)
-            locationPlaceholder2.date = "11/3/2020"
-            locationPlaceholder2.latitude = "39.050310"
+            locationPlaceholder2.date = "3/11/2021"
+            locationPlaceholder2.longitude = "-72.8622028029999"
+            locationPlaceholder2.latitude = "43.5401500850001"
             locationPlaceholder2.type = "Trail Damage"
             locationPlaceholder = Location(
-                "35.407338",
-                "-82.5072414",
-                "11/4/2020",
-                "Bad Blaze"
+                "43.537097008",
+                "-72.871430381",
+                "4/11/2021",
+                "Incorrect Blaze"
             )
             locationDao.insertLocation(locationPlaceholder)
             locationPlaceholder = Location(
-                "35.497338",
-                "-82.772414",
-                "11/5/2020",
-                "Poop"
+                "37.96466664",
+                "-78.887264834",
+                "5/10/2021",
+                "Trash"
             )
             locationDao.insertLocation(locationPlaceholder)
             locationPlaceholder = Location(
-                "35.50",
-                "-82.70",
-                "11/6/2020",
-                "Tree Blocking Trail"
+                "37.964727768",
+                "-78.877290035",
+                "6/09/2021",
+                "Trail Blocked"
             )
             locationDao.insertLocation(locationPlaceholder)
             locationPlaceholder = Location(
-                "35.52",
-                "-82.72",
-                "11/7/2020",
-                "More Poop"
+                "37.960556593",
+                "-78.892579674",
+                "6/09/2021",
+                "Trail Blocked"
             )
             locationDao.insertLocation(locationPlaceholder)
             locationDao.insertLocation(locationPlaceholder2)

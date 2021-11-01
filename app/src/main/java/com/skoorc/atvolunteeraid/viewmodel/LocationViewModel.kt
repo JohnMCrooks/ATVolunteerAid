@@ -13,9 +13,9 @@ import kotlinx.coroutines.launch
 
 //https://developer.android.com/codelabs/android-room-with-a-view-kotlin#10
 class LocationViewModel(context: Context): ViewModel() {
-    val applicationScope = CoroutineScope(SupervisorJob())
-    val database by lazy { LocationDatabase.getDatabase(context, applicationScope) }
-    val locationRepo by lazy {
+    private val applicationScope = CoroutineScope(SupervisorJob())
+    private val database by lazy { LocationDatabase.getDatabase(context, applicationScope) }
+    private val locationRepo by lazy {
         LocationRepository(
             database.locationDAO()
         )

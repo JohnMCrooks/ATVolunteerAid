@@ -1,5 +1,6 @@
 package com.skoorc.atvolunteeraid.view
 
+import android.Manifest
 import android.content.Context
 import android.os.Bundle
 import android.util.Log
@@ -8,16 +9,20 @@ import android.view.View
 import android.view.ViewGroup
 import android.widget.Button
 import android.widget.Toast.LENGTH_SHORT
+import androidx.core.app.ActivityCompat.requestPermissions
 import androidx.fragment.app.Fragment
 import androidx.navigation.findNavController
 import com.skoorc.atvolunteeraid.R
 import com.skoorc.atvolunteeraid.util.LocationUtil
 import com.skoorc.atvolunteeraid.util.showToast
 
+
 class ReportProblemFragment: Fragment() {
     private val TAG = "fragment_reportProblems"
-    // TODO Add onResume and OnPause overrides to maintain context so app doesn't crash when
-    // coming back from background on All fragments/activities
+    // TODO - Add onResume and OnPause overrides to maintain context so app doesn't crash when
+    //        coming back from background on All fragments/activities
+    // TODO - Convert this to use a recyclerView in a grid layout
+    //        would more easily allow for a variable list of items to report
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -25,6 +30,7 @@ class ReportProblemFragment: Fragment() {
         savedInstanceState: Bundle?
     ): View? {
         Log.i(TAG,   "Entering Report Problem fragment")
+        activity?.setTitle(R.string.title_fragment_report_issue)
         return inflater.inflate(R.layout.fragment_problem_report, container, false)
     }
 

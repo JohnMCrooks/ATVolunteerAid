@@ -31,6 +31,7 @@ class ListFragment: Fragment(), LocationListAdapter.OnItemClickListener, Locatio
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        activity?.setTitle(R.string.title_activity_report_list)
         val view = inflater.inflate(R.layout.fragment_list_view, container, false)
         val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerview)
         adapter = LocationListAdapter(view.context, this)
@@ -59,7 +60,7 @@ class ListFragment: Fragment(), LocationListAdapter.OnItemClickListener, Locatio
     }
 
     override fun onItemClick(recyclerPosition: Int, id: Int, location: String) {
-        //TODO Navigation to the map focused on the targeted pin. Look for a more refined way of
+        //TODO Look for a more refined way of
         // doing this than passing extras in through the intent
         Toast.makeText(context, "Let's go to the MAP!", Toast.LENGTH_SHORT).show()
         val intent = Intent(requireContext(), MapsActivity::class.java)

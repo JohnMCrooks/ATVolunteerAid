@@ -36,7 +36,7 @@ class LocationUtil {
         ) {
             Log.e(TAG, "Don't have the correct permissions")
         } else {
-            Log.i(TAG, "Permissions already exist")
+            Log.d(TAG, "Permissions already exist")
             //This won't work well on an emulator, use a real device to verify
             fusedLocationClient.lastLocation
                 .addOnFailureListener {
@@ -62,7 +62,7 @@ class LocationUtil {
                                 "37.7913",
                                 "-122.4789",
                                 getDateString(),
-                                "So much poop"
+                                "Emulator Failure"
                             )
                         Log.d(TAG, "New Location b.c. emulator sucks: $newLocation")
                         locationViewModel.insert(newLocation)
@@ -82,7 +82,7 @@ class LocationUtil {
 
     fun getATResourceStringList(): List<String> {
         var resourceIdArray = mutableListOf<String>()
-        for(i in 1..27) {
+        for(i in 1..60) {
             val name = "at_break_$i"
             Log.i("LocationUtil", "List Entry: $i, $name")
             resourceIdArray.add(i-1, name)

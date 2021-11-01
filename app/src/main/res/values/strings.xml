@@ -1,15 +1,17 @@
 <resources>
     <!-- Overview -->
-    <string name="app_name">ATVolunteerAid</string>
-    <string name="list_of_trash_button_label">Trash List</string>
+    <string name="app_name">AT Volunteer Aid</string>
+    <string name="list_of_trash_button_label">Issue List</string>
     <string name="mark_location_button_label">Report Issue</string>
     <string name="view_map_button_label">View Map</string>
     <!-- Maps -->
-    <string name="title_activity_maps">Trail issues</string>
+    <string name="title_activity_maps">Issues on the AT</string>
     <!-- List Fragment -->
-    <string name="list_header_total">Unresolved Problems:</string>
+    <string name="title_activity_report_list">Reported Issues</string>
+    <string name="list_header_total"># of Unresolved:</string>
     <string name="desc_delete_all_entries">Delete Locations</string>
     <!-- Report Fragment-->
+    <string name="title_fragment_report_issue">Report a Problem</string>
     <string name="report_trash_button_label">Trash</string>
     <string name="report_bad_trail_marker_button_label">Bad Trail Marker</string>
     <string name="report_trail_blocked_button_label">Trail Blocked</string>
@@ -22,4 +24,6 @@
     <string name="report_trail_blocked_button_toast">The trail blockage has been reported! </string>
     <string name="report_poop_button_toast">The poop on the trail has been reported! </string>
     <string name="idLabel">ID:</string>
+    <string name="at_logo">AT Logo</string>
+
 </resources>
