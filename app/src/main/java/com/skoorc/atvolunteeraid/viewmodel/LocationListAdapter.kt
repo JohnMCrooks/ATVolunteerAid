@@ -5,6 +5,7 @@ import android.view.LayoutInflater
 import android.view.View
 import android.view.ViewGroup
 import android.widget.TextView
+import androidx.recyclerview.widget.DiffUtil
 import androidx.recyclerview.widget.RecyclerView
 import com.skoorc.atvolunteeraid.R
 import com.skoorc.atvolunteeraid.model.Location
@@ -73,4 +74,14 @@ class LocationListAdapter internal constructor(context: Context, val listener: L
     }
 
     override fun getItemCount() = locations.size
+
+//    TODO - Implement Companion DiffCallBack for efficiency
+//    companion object DiffCallback : DiffUtil.ItemCallback<foo>() {
+//        override fun areItemsTheSame(oldItem: foo, newItem: foo): Boolean {
+//            return oldItem === newItem
+//        }
+//
+//        override fun areContentsTheSame(oldItem: foo, newItem: foo): Boolean {
+//            return oldItem.id == newItem.id
+//        }
 }

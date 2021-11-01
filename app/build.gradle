@@ -3,6 +3,8 @@ apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'androidx.navigation.safeargs'
+//apply plugin: 'com.google.gms.google-services'
+//apply plugin: 'com.google.firebase.crashlytics'
 
 android {
     compileSdkVersion 30
@@ -15,22 +17,13 @@ android {
         versionCode 1
         versionName "1.0"
 
+        // Read the API key from secure.properties into R.string.maps_api_key
+        def secureProps = new Properties()
+        if (file("secret.properties").exists()) {
+            file("secret.properties")?.withInputStream { secureProps.load(it) }
+        }
+        resValue "string", "google_maps_key", (secureProps.getProperty("google_maps_key") ?: "")
         testInstrumentationRunner "androidx.test.runner.AndroidJUnitRunner"
-    }
-
-    buildTypes {
-        release {
-            minifyEnabled true
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            resValue "string", "google_maps_key",
-                    (project.findProperty("GOOGLE_MAPS_API_KEY") ?: "")
-        }
-        debug {
-            minifyEnabled false
-            proguardFiles getDefaultProguardFile('proguard-android-optimize.txt'), 'proguard-rules.pro'
-            resValue "string", "google_maps_key",
-                    (project.findProperty("GOOGLE_MAPS_API_KEY") ?: "")
-        }
     }
 
     packagingOptions {
@@ -40,6 +33,12 @@ android {
     // Enables data binding.
     buildFeatures {
         dataBinding true
+    }
+}
+
+kotlin {
+    experimental {
+        coroutines 'enable'
     }
 }
 
@@ -71,6 +70,12 @@ dependencies {
     implementation "androidx.lifecycle:lifecycle-extensions:$version_lifecycle_extensions"
     implementation "androidx.lifecycle:lifecycle-common-java8:2.2.0"
     androidTestImplementation "androidx.room:room-testing:$version_room"
+    // Firebase - https://firebase.google.com/docs/android/setup#available-libraries
+//    implementation platform('com.google.firebase:firebase-bom:26.3.0')
+//    implementation 'com.google.firebase:firebase-analytics-ktx'
+//    implementation 'com.google.firebase:firebase-auth:20.0.2'
+//    implementation 'com.google.firebase:firebase-crashlytics-ktx'
+//    implementation 'com.google.firebase:firebase-storage-ktx'
     // Retrofit
     implementation "org.jetbrains.anko:anko-common:0.10.8"
     implementation "com.squareup.retrofit2:retrofit:$version_retrofit"
