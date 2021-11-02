@@ -7,11 +7,12 @@ import androidx.room.Room
 import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.skoorc.atvolunteeraid.model.Location
+import com.skoorc.atvolunteeraid.model.User
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 // DB reference --> https://developer.android.com/codelabs/android-room-with-a-view-kotlin#10
-@Database(entities = arrayOf(Location::class), version = 2, exportSchema = false)
+@Database(entities = [Location::class, User::class], version = 4, exportSchema = false)
 abstract class LocationDatabase: RoomDatabase() {
     abstract fun locationDAO(): LocationDAO
 
@@ -56,46 +57,79 @@ abstract class LocationDatabase: RoomDatabase() {
                 "37.6751636590001",
                 "-79.334662259",
                 "1/11/2021",
-                "Trash"
+                "Trash",
+                "JC",
+                "Unresolved"
+            )
+            locationDao.insertLocation(locationPlaceholder)
+            locationPlaceholder = Location(
+                "37.6751536590001",
+                "-79.334662259",
+                "10/12/2021",
+                "Trash",
+                "Mary",
+                "Resolved"
+            )
+            locationDao.insertLocation(locationPlaceholder)
+            locationPlaceholder = Location(
+                "37.6751566590001",
+                "-79.334662259",
+                "10/13/2021",
+                "Trash",
+                "Joseph",
+                "Resolved"
             )
             locationDao.insertLocation(locationPlaceholder)
             var locationPlaceholder2 = Location(
                 "43.5371713170001",
                 "-72.871504692",
                 "2/11/2021",
-                "Incorrect blaze"
+                "Incorrect blaze",
+                "JC",
+                "Unresolved"
             )
             locationDao.insertLocation(locationPlaceholder2)
             locationPlaceholder2.date = "3/11/2021"
             locationPlaceholder2.longitude = "-72.8622028029999"
             locationPlaceholder2.latitude = "43.5401500850001"
             locationPlaceholder2.type = "Trail Damage"
+            locationPlaceholder2.status = "Unresolved"
+            locationPlaceholder2.reportedBy = "JMC"
+
             locationPlaceholder = Location(
                 "43.537097008",
                 "-72.871430381",
                 "4/11/2021",
-                "Incorrect Blaze"
+                "Incorrect Blaze",
+                "Sarah",
+                "Unresolved"
             )
             locationDao.insertLocation(locationPlaceholder)
             locationPlaceholder = Location(
                 "37.96466664",
                 "-78.887264834",
                 "5/10/2021",
-                "Trash"
+                "Trash",
+                "Mikey",
+                "Unresolved"
             )
             locationDao.insertLocation(locationPlaceholder)
             locationPlaceholder = Location(
                 "37.964727768",
                 "-78.877290035",
                 "6/09/2021",
-                "Trail Blocked"
+                "Trail Blocked",
+                "Sarah",
+                "Unresolved"
             )
             locationDao.insertLocation(locationPlaceholder)
             locationPlaceholder = Location(
                 "37.960556593",
                 "-78.892579674",
                 "6/09/2021",
-                "Trail Blocked"
+                "Trail Blocked",
+                "JC",
+                "Unresolved"
             )
             locationDao.insertLocation(locationPlaceholder)
             locationDao.insertLocation(locationPlaceholder2)

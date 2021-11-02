@@ -16,7 +16,6 @@ import com.skoorc.atvolunteeraid.viewmodel.LocationViewModel
 import com.skoorc.atvolunteeraid.viewmodel.LocationViewModelFactory
 import java.util.*
 
-
 class LocationUtil {
     private lateinit var fusedLocationClient: FusedLocationProviderClient
     private lateinit var locationViewModel: LocationViewModel
@@ -50,7 +49,9 @@ class LocationUtil {
                                 it.latitude.toString(),
                                 it.longitude.toString(),
                                 getDateString(),
-                                problemType
+                                problemType,
+                                "JMC",
+                                "Unresolved"
                             )
                         Log.d(TAG, "New Location: $newLocation")
                         locationViewModel.insert(newLocation)
@@ -62,7 +63,9 @@ class LocationUtil {
                                 "37.7913",
                                 "-122.4789",
                                 getDateString(),
-                                "Emulator Failure"
+                                "Emulator Failure",
+                                "JMC",
+                                "Unresolved"
                             )
                         Log.d(TAG, "New Location b.c. emulator sucks: $newLocation")
                         locationViewModel.insert(newLocation)

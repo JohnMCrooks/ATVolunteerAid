@@ -10,10 +10,12 @@ import android.view.ViewGroup
 import android.widget.TextView
 import android.widget.Toast
 import androidx.fragment.app.Fragment
+import androidx.lifecycle.LiveData
 import androidx.lifecycle.Observer
 import androidx.recyclerview.widget.LinearLayoutManager
 import androidx.recyclerview.widget.RecyclerView
 import com.skoorc.atvolunteeraid.R
+import com.skoorc.atvolunteeraid.model.Location
 import com.skoorc.atvolunteeraid.viewmodel.LocationListAdapter
 import com.skoorc.atvolunteeraid.viewmodel.LocationViewModel
 import com.skoorc.atvolunteeraid.viewmodel.LocationViewModelFactory
@@ -25,6 +27,8 @@ class ListFragment: Fragment(), LocationListAdapter.OnItemClickListener, Locatio
     val TAG = "LocationListFragment"
     private lateinit var locationViewModel: LocationViewModel
     private lateinit var adapter: LocationListAdapter
+    private lateinit var observedList: LiveData<List<Location>>
+    private lateinit var observedCount: LiveData<Int>
 
     override fun onCreateView(
         inflater: LayoutInflater,
@@ -41,15 +45,64 @@ class ListFragment: Fragment(), LocationListAdapter.OnItemClickListener, Locatio
         recyclerView.adapter = adapter
         recyclerView.layoutManager = LinearLayoutManager(view.context)
         locationViewModel = context?.let { LocationViewModelFactory(it).create(LocationViewModel::class.java) }!!
+        // initialize the list to be observed
+        setListObservers(view, true)
 
         // Observers to update data from DB as changes are made (addition/deletion of locations)
-        locationViewModel.allLocations.observe(viewLifecycleOwner, Observer { locations ->
+        view.button_filter.setOnClickListener { v ->
+            setListObservers(view, false)
+        }
+        return view
+    }
+
+    //rotates through the "filters" on button click
+    private fun setListObservers(view: View, initialLoad: Boolean) {
+        if (initialLoad) {
+            observedList = locationViewModel.allLocations
+            observedCount = locationViewModel.totalLocationCount
+            setCountTextAndFilterText(
+                view,
+                "Total # of Reports",
+                "All")
+        } else {
+            when(view.button_filter.text) {
+                "All", "Filter" -> {
+                    observedList = locationViewModel.allUnresolvedLocations
+                    observedCount = locationViewModel.unresolvedLocationCount
+                    setCountTextAndFilterText(
+                        view,
+                        "# of Unresolved",
+                        "Filter - Unresolved")
+                }
+                "Filter - Unresolved" -> {
+                    observedList = locationViewModel.allResolvedLocations
+                    observedCount = locationViewModel.resolvedLocationCount
+                    setCountTextAndFilterText(
+                        view,
+                        "# of Resolved",
+                        "Filter - Resolved")
+                }
+                else -> {
+                    observedList = locationViewModel.allLocations
+                    observedCount = locationViewModel.totalLocationCount
+                    setCountTextAndFilterText(
+                        view,
+                        "Total # of Reports",
+                        "All")
+                }
+            }
+        }
+        observedList.observe(viewLifecycleOwner, Observer { locations ->
             locations.let { adapter.setLocations(it) }
         })
-        locationViewModel.totalLocationCount.observe(viewLifecycleOwner, Observer {totalCount ->
-            locationCount.text = totalCount.toString()
+        observedCount.observe(viewLifecycleOwner, Observer { count ->
+            view.listCountTotalTextView.text = count.toString()
         })
-        return view
+    }
+
+    private fun setCountTextAndFilterText(view: View, countLabelText: String, filterText: String) {
+        view.button_filter.text = filterText
+        view.listCountLabel.text = countLabelText
     }
 
     override fun onViewCreated(view: View, savedInstanceState: Bundle?) {
@@ -77,7 +130,7 @@ class ListFragment: Fragment(), LocationListAdapter.OnItemClickListener, Locatio
         dialogueBuilder.setMessage("Has the issue been cleaned up or fixed??")
             .setCancelable(false)
             .setPositiveButton("Yup, Issue resolved") { dialogue, _ ->
-                locationViewModel.deleteById(idValue)
+                locationViewModel.markResolved(idValue)
                 dialogue.dismiss()
             }
             .setNegativeButton("Cancel") { dialogue, _ ->

@@ -25,12 +25,20 @@ class LocationViewModel(context: Context): ViewModel() {
     //   the UI when the data actually changes.
     // - Repository is completely separated from the UI through the ViewModel.
     val allLocations: LiveData<List<Location>> = locationRepo.allLocations.asLiveData()
+    val allResolvedLocations: LiveData<List<Location>> = locationRepo.resolvedLocations.asLiveData()
+    val allUnresolvedLocations: LiveData<List<Location>> = locationRepo.unresolvedLocations.asLiveData()
     val totalLocationCount: LiveData<Int> = locationRepo.totalLocationCount.asLiveData()
-//    val getLatestLocation: LiveData<Location> = locationRepo.getLatestLocation.asLiveData()
+    val resolvedLocationCount: LiveData<Int> = locationRepo.resolvedLocationCount.asLiveData()
+    val unresolvedLocationCount: LiveData<Int> = locationRepo.unresolvedLocationCount.asLiveData()
 
     fun insert(location: Location) = viewModelScope.launch(Dispatchers.IO) {
         Log.i("LocationViewModel", "insert Location: $location")
         locationRepo.insert(location)
+    }
+
+    fun markResolved(id: Int) = viewModelScope.launch(Dispatchers.IO) {
+        Log.i("LocationViewModel", "Mark Issue/Location Resolved")
+        locationRepo.setIssueResolved(id)
     }
 
     fun deleteAll() = viewModelScope.launch(Dispatchers.IO) {

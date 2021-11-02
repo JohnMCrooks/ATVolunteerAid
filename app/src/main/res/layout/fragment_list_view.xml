@@ -38,10 +38,9 @@
         android:layout_width="409dp"
         android:layout_height="1dp"
         android:background="?android:attr/listDivider"
-        app:layout_constraintEnd_toEndOf="parent"
-        app:layout_constraintStart_toStartOf="parent"
         app:layout_constraintBottom_toBottomOf="@+id/listCountLabel"
-        tools:layout_editor_absoluteY="55dp" />
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintStart_toStartOf="parent" />
 
     <androidx.recyclerview.widget.RecyclerView
         android:id="@+id/recyclerview"
@@ -66,5 +65,20 @@
         app:layout_constraintEnd_toEndOf="parent"
         app:fabCustomSize="64dp"
         app:maxImageSize="32dp"/>
+
+    <Button
+        android:id="@+id/button_filter"
+        android:layout_width="111dp"
+        android:layout_height="55dp"
+        android:layout_marginEnd="24dp"
+        android:text="Filter"
+        android:textAlignment="center"
+        android:textColor="#FFFFFF"
+        android:textColorHighlight="#3F51B5"
+        android:textColorLink="#E40E0E"
+        android:textSize="10sp"
+        app:layout_constraintEnd_toEndOf="parent"
+        app:layout_constraintTop_toTopOf="parent"
+        tools:text="Filter" />
 
 </androidx.constraintlayout.widget.ConstraintLayout>

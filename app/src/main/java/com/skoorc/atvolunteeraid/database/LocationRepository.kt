@@ -10,7 +10,11 @@ import kotlinx.coroutines.flow.Flow
 class LocationRepository (private val locationDAO: LocationDAO) {
 
     val allLocations: Flow<List<Location>> = locationDAO.getAllLocations().asFlow()
+    val resolvedLocations: Flow<List<Location>> = locationDAO.getResolvedLocations().asFlow()
+    val unresolvedLocations: Flow<List<Location>> = locationDAO.getUnresolvedLocations().asFlow()
     val totalLocationCount: Flow<Int> = locationDAO.getLocationCount().asFlow()
+    val resolvedLocationCount: Flow<Int> = locationDAO.getResolvedLocationCount().asFlow()
+    val unresolvedLocationCount: Flow<Int> = locationDAO.getUnresolvedLocationCount().asFlow()
     val getLatestLocation = locationDAO.getLatestLocation().asFlow()
 
     @WorkerThread
@@ -29,5 +33,10 @@ class LocationRepository (private val locationDAO: LocationDAO) {
     fun deleteById(id: Int) {
         locationDAO.deleteById(id)
         Log.i("LocationRepository", "Location entry Deleted by ID $id")
+    }
+
+    @WorkerThread
+    fun setIssueResolved(id: Int) {
+        locationDAO.markIssueResolved(id)
     }
 }
