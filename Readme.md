@@ -38,8 +38,8 @@ Goals:
   - table_problemReport: uuid, Lat, Long, problemType, resolved, reportedBy (Join on user, many reports to one user)
 
 ## LOCAL MVP 1.1.2
-- Refactor recyclerView to use Cards for Problem info instead of TextView
-- Add way to mark Problem as resolved on individual cards (button or swipe, maybe?)
+- Done - Refactor recyclerView to use Cards for Problem info instead of TextView
+- Done - Add way to mark Problem as resolved on individual cards (button or swipe, maybe?)
 
 ## LOCAL  MVP 1.1.3 - Map-centric upgrades
 - filter map markers to only show unresolved reports (displays all reports at the moment since they can only be deleted not completed, requires DB update in 1.1.1 to be completed first)
