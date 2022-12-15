@@ -15,7 +15,7 @@ interface LocationDAO {
     @Query ("SELECT * FROM location_table ORDER BY date_added DESC")
     fun getAllLocations(): LiveData<List<Location>>
 
-    @Query ("SELECT * FROM location_table WHERE status!='Unresolved' ORDER BY date_added DESC")
+    @Query ("SELECT * FROM location_table WHERE status='Resolved' ORDER BY date_added DESC")
     fun getResolvedLocations(): LiveData<List<Location>>
 
     @Query ("SELECT * FROM location_table WHERE status='Unresolved' ORDER BY date_added DESC")
@@ -30,8 +30,11 @@ interface LocationDAO {
     @Query ("SELECT COUNT(*) FROM location_table WHERE status='Unresolved'")
     fun getUnresolvedLocationCount(): LiveData<Int>
 
-    @Query ("SELECT * FROM location_table WHERE uuid=:uuid ")
-    fun getLocationByUUID(uuid: UUID): LiveData<Location>
+    @Query ("SELECT * FROM location_table WHERE uuid=:uuid")
+    fun getLocationByUUID(uuid: String): LiveData<Location>
+
+    @Query ("SELECT * FROM location_table WHERE id=:id")
+    fun getLocationByID(id: Int): Location
 
     @Insert(onConflict = OnConflictStrategy.IGNORE)
     suspend fun insertLocation(location: Location)

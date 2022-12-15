@@ -2,12 +2,15 @@ package com.skoorc.atvolunteeraid.util
 
 import android.Manifest
 import android.annotation.SuppressLint
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.ContentValues.TAG
 import android.content.Context
 import android.content.pm.PackageManager
 import android.icu.text.SimpleDateFormat
 import android.icu.util.Calendar
 import android.util.Log
+import android.widget.Toast
 import androidx.core.app.ActivityCompat
 import com.google.android.gms.location.FusedLocationProviderClient
 import com.google.android.gms.location.LocationServices
@@ -42,16 +45,18 @@ class LocationUtil {
                     Log.e(TAG, "Failed to Obtain location")
                 }
                 .addOnSuccessListener {
+                    val randomName = arrayOf("JMC", "Shelly", "BikerBae","barrelBowls", "sharknado").random()
                     if (it != null) {
                         Log.i(TAG, "Success in scope: ${it.longitude}, ${it.latitude}")
+
                         val newLocation =
                             Location(
                                 it.latitude.toString(),
                                 it.longitude.toString(),
                                 getDateString(),
                                 problemType,
-                                "JMC",
-                                "Unresolved"
+                                status = "Unresolved",
+                                reportedBy = randomName
                             )
                         Log.d(TAG, "New Location: $newLocation")
                         locationViewModel.insert(newLocation)
@@ -63,9 +68,9 @@ class LocationUtil {
                                 "37.7913",
                                 "-122.4789",
                                 getDateString(),
-                                "Emulator Failure",
-                                "JMC",
-                                "Unresolved"
+                                "Emulators are lame",
+                                status = "Unresolved",
+                                reportedBy = randomName
                             )
                         Log.d(TAG, "New Location b.c. emulator sucks: $newLocation")
                         locationViewModel.insert(newLocation)
@@ -78,9 +83,8 @@ class LocationUtil {
     @SuppressLint("SimpleDateFormat")
     fun getDateString(): String {
         val date: Date = Calendar.getInstance().time
-        val dateFormat = SimpleDateFormat("dd/MM/yyyy")
-        val strDate = dateFormat.format(date)
-        return strDate
+        val dateFormat = SimpleDateFormat("yyyy/MM/dd")
+        return dateFormat.format(date)
     }
 
     fun getATResourceStringList(): List<String> {

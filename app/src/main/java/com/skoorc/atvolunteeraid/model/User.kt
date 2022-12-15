@@ -14,4 +14,8 @@ data class User(
     @ColumnInfo (name = "is_shadow_banned") var isShadowBanned: Boolean
     ) {
     @PrimaryKey(autoGenerate = true) var id: Int = 0
+
+    override fun toString(): String {
+        return "email: $email, nickname: $nickname state: $state date_joined: $dateJoined, admin: $adminStatus isShadowBanned: $isShadowBanned"
+    }
 }

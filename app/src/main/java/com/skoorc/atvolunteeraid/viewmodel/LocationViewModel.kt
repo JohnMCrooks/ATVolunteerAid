@@ -1,5 +1,7 @@
 package com.skoorc.atvolunteeraid.viewmodel
 
+import android.content.ClipData
+import android.content.ClipboardManager
 import android.content.Context
 import android.util.Log
 import androidx.lifecycle.*
@@ -13,6 +15,7 @@ import kotlinx.coroutines.launch
 
 //https://developer.android.com/codelabs/android-room-with-a-view-kotlin#10
 class LocationViewModel(context: Context): ViewModel() {
+    val TAG = "LocationViewModel"
     private val applicationScope = CoroutineScope(SupervisorJob())
     private val database by lazy { LocationDatabase.getDatabase(context, applicationScope) }
     private val locationRepo by lazy {
@@ -32,28 +35,54 @@ class LocationViewModel(context: Context): ViewModel() {
     val unresolvedLocationCount: LiveData<Int> = locationRepo.unresolvedLocationCount.asLiveData()
 
     fun insert(location: Location) = viewModelScope.launch(Dispatchers.IO) {
-        Log.i("LocationViewModel", "insert Location: $location")
+        Log.i(TAG, "insert Location: $location")
         locationRepo.insert(location)
     }
 
     fun markResolved(id: Int) = viewModelScope.launch(Dispatchers.IO) {
-        Log.i("LocationViewModel", "Mark Issue/Location Resolved")
+        Log.i(TAG, "Mark Issue/Location Resolved. ID # $id")
         locationRepo.setIssueResolved(id)
     }
 
     fun deleteAll() = viewModelScope.launch(Dispatchers.IO) {
-        Log.i("LocationViewModel", "deleteAll")
+        Log.i(TAG, "deleteAll")
         locationRepo.deleteAll()
     }
 
     fun deleteById(id: Int) = viewModelScope.launch(Dispatchers.IO) {
-        Log.i("LocationViewModel", "deleteByID $id")
+        Log.i(TAG, "deleteByID $id")
         locationRepo.deleteById(id)
+    }
+
+    fun getLocationById(id: Int): Location {
+        Log.d(TAG, "Getting location by ID: $id")
+        return locationRepo.getLocationByID(id)
+    }
+
+    var myClipboard: ClipboardManager? = null
+    var myClip: ClipData? = null
+
+
+    fun copyLatLongToClipboard(context: Context, latLng: String) {
+        val location  = latLng.replace("\n", " ")
+
+        Log.d(TAG, "location: $location -  latLng: $latLng")
+        myClipboard = context.getSystemService(Context.CLIPBOARD_SERVICE) as ClipboardManager?
+
+        myClip = ClipData.newPlainText("text", latLng);
+        myClipboard?.setPrimaryClip(myClip as ClipData);
+    }
+
+    fun getClipboardText(): String {
+        val clipData = myClipboard?.primaryClip
+        val item = clipData?.getItemAt(0)
+
+        return item?.text.toString()
     }
 }
 
 class LocationViewModelFactory( val context: Context): ViewModelProvider.Factory {
-    override fun <T : ViewModel?> create(modelClass: Class<T>): T {
+    override fun <T : ViewModel> create(modelClass: Class<T>): T {
         if (modelClass.isAssignableFrom(LocationViewModel::class.java)){
             @Suppress("UNCHECKED_CAST")
             return LocationViewModel(context) as T

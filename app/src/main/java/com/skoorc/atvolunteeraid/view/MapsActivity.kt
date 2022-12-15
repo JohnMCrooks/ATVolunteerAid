@@ -122,9 +122,8 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
      * If the map is entered from the Issue list, it will pass a lat long of the item the user clicked to use as a starting center location
      */
     private fun getInitialMapLocation(): LatLng {
-        val initialPinLatLngString: List<String>? = intent?.getStringExtra("LOCATION_LAT_LONG")?.split(",")
-        val initialPinLatLng: LatLng
-        initialPinLatLng = if (!initialPinLatLngString.isNullOrEmpty()) {
+        val initialPinLatLngString: List<String>? = intent?.getStringExtra("LOCATION_LAT_LONG")?.split("\n")
+        return if (!initialPinLatLngString.isNullOrEmpty()) {
             LatLng(
                 initialPinLatLngString[0].toDouble(),
                 initialPinLatLngString[1].toDouble()
@@ -132,6 +131,5 @@ class MapsActivity : AppCompatActivity(), OnMapReadyCallback {
         } else {
             eastCoastUSA
         }
-        return initialPinLatLng
     }
 }

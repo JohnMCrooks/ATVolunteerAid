@@ -15,6 +15,7 @@ import kotlinx.coroutines.launch
 @Database(entities = [Location::class, User::class], version = 5, exportSchema = false)
 abstract class LocationDatabase: RoomDatabase() {
     abstract fun locationDAO(): LocationDAO
+    abstract fun userDAO(): UserDAO
     val TAG = "LocationDatabase"
 
     companion object {
@@ -47,100 +48,127 @@ abstract class LocationDatabase: RoomDatabase() {
             super.onOpen(db)
             INSTANCE?.let { database ->
                 scope.launch{
-                    prePopulateDatabase(database.locationDAO())
+                    prePopulateDatabase(database.locationDAO(), database.userDAO())
                 }
             }
         }
-        suspend fun prePopulateDatabase(locationDao: LocationDAO) {
+        suspend fun prePopulateDatabase(locationDao: LocationDAO, userDao: UserDAO) {
             Log.i("DatabaseInit", "pre-populating database")
             locationDao.deleteAll()
+
+            fun randomName(): String {return arrayOf("JMC", "Shelly", "BikerBae","barrelBowls", "sharknado", "yogiBear").random()}
+            fun issueType(): String {return arrayOf("Trash", "Trail Blocked", "Poop", "Missing Marker", "Scary Bears").random()}
+            fun randomDay():String {return  (1..31).random().toString()}
+            fun randomMonth():String {return  (1..12).random().toString()}
+            fun randomYear():String {return  (1990..2021).random().toString()}
+            fun randomDate(): String {return "${randomYear()}/${randomMonth()}/${randomDay()}"}
+
             var locationPlaceholder = Location(
                 "37.6751636590001",
                 "-79.334662259",
-                "1/11/2021",
-                "Trash",
+                randomDate(),
+                issueType(),
                 "Unresolved",
-                "JC"
+                randomName()
             )
             locationDao.insertLocation(locationPlaceholder)
             locationPlaceholder = Location(
                 "37.6751536590001",
                 "-79.334662259",
-                "10/12/2021",
-                "Trash",
+                randomDate(),
+                issueType(),
                 "Resolved",
-                "Mary",
-                resolvedBy = "Joseph",
-                dateResolved = "11/20/2021"
+                randomName(),
+                resolvedBy = randomName(),
+                dateResolved = randomDate()
             )
             locationDao.insertLocation(locationPlaceholder)
             locationPlaceholder = Location(
                 "37.6751566590001",
                 "-79.334662259",
-                "10/13/2021",
-                "Trash",
+                randomDate(),
+                issueType(),
                 "Resolved",
-                "Joseph",
-                resolvedBy = "JC",
+                randomName(),
+                resolvedBy = randomName(),
                 dateResolved = "11/20/2021"
             )
             locationDao.insertLocation(locationPlaceholder)
             var locationPlaceholder2 = Location(
                 "43.5371713170001",
                 "-72.871504692",
-                "2/11/2021",
-                "Incorrect blaze",
+                randomDate(),
+                issueType(),
                 "Unresolved",
-                "JC"
+                randomName()
             )
             locationDao.insertLocation(locationPlaceholder2)
-            locationPlaceholder2.date = "3/11/2021"
+            locationPlaceholder2.date = randomDate()
             locationPlaceholder2.longitude = "-72.8622028029999"
             locationPlaceholder2.latitude = "43.5401500850001"
-            locationPlaceholder2.type = "Trail Damage"
+            locationPlaceholder2.type = issueType()
             locationPlaceholder2.status = "Unresolved"
-            locationPlaceholder2.reportedBy = "JMC"
+            locationPlaceholder2.reportedBy = randomName()
 
             locationPlaceholder = Location(
                 "43.537097008",
                 "-72.871430381",
-                "4/11/2021",
-                "Incorrect Blaze",
-                "Sarah",
-                "Unresolved"
+                 randomDate(),
+                issueType(),
+                "Unresolved",
+                randomName()
             )
             locationDao.insertLocation(locationPlaceholder)
             locationPlaceholder = Location(
                 "37.96466664",
                 "-78.887264834",
-                "5/10/2021",
-                "Trash",
-                "Mikey",
-                "Unresolved"
+                randomDate(),
+                issueType(),
+                "Unresolved",
+                randomName()
+
             )
             locationDao.insertLocation(locationPlaceholder)
             locationPlaceholder = Location(
                 "37.964727768",
                 "-78.877290035",
-                "6/09/2021",
-                "Trail Blocked",
-                "Sarah",
-                "Unresolved"
+                randomDate(),
+                issueType(),
+                "Unresolved",
+                randomName()
             )
             locationDao.insertLocation(locationPlaceholder)
             locationPlaceholder = Location(
                 "37.960556593",
                 "-78.892579674",
-                "6/09/2021",
-                "Trail Blocked",
-                "JC",
+                randomDate(),
+                issueType(),
                 "Resolved",
-                resolvedBy = "Mary",
+                randomName(),
+                resolvedBy = randomName(),
                 dateResolved = "12/01/2021"
             )
             locationDao.insertLocation(locationPlaceholder)
             Log.d(TAG, locationPlaceholder.toString())
             locationDao.insertLocation(locationPlaceholder2)
+
+            fun randomEmail():String {return  arrayOf("JMC", "Shelly", "BikerBae","barrelBowls", "sharknado", "yogiBear").random() + "gmail.com"}
+            fun randomState():String {return  arrayOf("CA", "MD", "NC", "OR", "SC", "DE", "RI", "KA", "AL").random()}
+
+            fun newUser(): User {
+                return User(
+                    randomEmail(),
+                    randomName(),
+                    randomDate(),
+                    false,
+                    randomState(),
+                    false
+                )
+            }
+            userDao.insertUser(newUser())
+            userDao.insertUser(newUser())
+            userDao.insertUser(newUser())
+            userDao.insertUser(newUser())
         }
     }
 }

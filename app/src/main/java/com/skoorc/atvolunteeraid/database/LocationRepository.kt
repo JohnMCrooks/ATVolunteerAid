@@ -37,10 +37,21 @@ class LocationRepository (private val locationDAO: LocationDAO) {
 
     @WorkerThread
     fun setIssueResolved(id: Int) {
+        Log.i("LocationRepository", "Location marked Resolved by ID $id")
         locationDAO.markIssueResolved(id)
     }
 
+    @WorkerThread
     fun getLocationByUUID(uuid: UUID): Flow<Location> {
-        return locationDAO.getLocationByUUID(uuid).asFlow()
+        val uuidString = uuid.toString()
+        Log.i("LocationRepository", "Location retrieved by UUID $uuidString")
+        return locationDAO.getLocationByUUID(uuidString).asFlow()
+    }
+
+    @WorkerThread
+    fun getLocationByID(id: Int): Location {
+        Log.i("LocationRepository", "Location retrieved by ID $id")
+        return locationDAO.getLocationByID(id)
+
     }
 }
