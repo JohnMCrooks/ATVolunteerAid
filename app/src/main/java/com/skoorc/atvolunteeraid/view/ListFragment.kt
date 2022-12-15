@@ -1,6 +1,7 @@
 package com.skoorc.atvolunteeraid.view
 
 import android.app.AlertDialog
+import android.content.DialogInterface
 import android.content.Intent
 import android.os.Bundle
 import android.util.Log
@@ -35,6 +36,7 @@ class ListFragment: Fragment(), LocationListAdapter.OnItemClickListener, Locatio
         container: ViewGroup?,
         savedInstanceState: Bundle?
     ): View? {
+        Log.d(TAG, "Entering OnCreateView")
         activity?.setTitle(R.string.title_activity_report_list)
         val view = inflater.inflate(R.layout.fragment_list_view, container, false)
         val recyclerView = view.findViewById<RecyclerView>(R.id.recyclerview)
@@ -67,6 +69,7 @@ class ListFragment: Fragment(), LocationListAdapter.OnItemClickListener, Locatio
         } else {
             when(view.button_filter.text) {
                 "All", "Filter" -> {
+                    Log.d(TAG, "updating filters to unresolved locations")
                     observedList = locationViewModel.allUnresolvedLocations
                     observedCount = locationViewModel.unresolvedLocationCount
                     setCountTextAndFilterText(
@@ -75,6 +78,7 @@ class ListFragment: Fragment(), LocationListAdapter.OnItemClickListener, Locatio
                         "Filter - Unresolved")
                 }
                 "Filter - Unresolved" -> {
+                    Log.d(TAG, "updating filters to Resolved locations")
                     observedList = locationViewModel.allResolvedLocations
                     observedCount = locationViewModel.resolvedLocationCount
                     setCountTextAndFilterText(
@@ -83,6 +87,7 @@ class ListFragment: Fragment(), LocationListAdapter.OnItemClickListener, Locatio
                         "Filter - Resolved")
                 }
                 else -> {
+                    Log.d(TAG, "updating filters to All locations")
                     observedList = locationViewModel.allLocations
                     observedCount = locationViewModel.totalLocationCount
                     setCountTextAndFilterText(
@@ -112,32 +117,73 @@ class ListFragment: Fragment(), LocationListAdapter.OnItemClickListener, Locatio
         }
     }
 
+    /**
+     * Will attempt to start the map activity on click.
+     */
     override fun onItemClick(recyclerPosition: Int, id: Int, location: String) {
         //TODO Look for a more refined way of
         // doing this than passing extras in through the intent
         Toast.makeText(context, "Let's go to the MAP!", Toast.LENGTH_SHORT).show()
+        Log.d(TAG, "Entering OnItemClick - location: $location")
+        startMapIntent(id, location)
+    }
+
+    private fun startMapIntent(id: Int, location: String) {
         val intent = Intent(requireContext(), MapsActivity::class.java)
         intent.putExtra("LOCATION_ID", id)
         intent.putExtra("LOCATION_LAT_LONG", location)
         startActivity(intent)
     }
-
-    override fun onItemLongClick(recyclerPosition: Int, idValue: Int) {
+    /**
+     * Will pop open a dialog and give the user a chance to resolve the issue, go to the map or hit dismiss the dialog.
+     */
+    fun onItemLongClick(recyclerPosition: Int, idValue: Int, latLng: String) {
         //TODO Make this pop up a verification that the item has been fixed/removed/Cleaned up
         //TODO Schema update should include resolved true/false. remove deletion (keep all entries for analytics eventually)
         Log.d(TAG,"Recycler item long clicked, position: $recyclerPosition, ID: $idValue")
-        val dialogueBuilder = AlertDialog.Builder(context)
-        dialogueBuilder.setMessage("Has the issue been cleaned up or fixed??")
-            .setCancelable(false)
-            .setPositiveButton("Yup, Issue resolved") { dialogue, _ ->
-                locationViewModel.markResolved(idValue)
-                dialogue.dismiss()
-            }
-            .setNegativeButton("Cancel") { dialogue, _ ->
-                dialogue.cancel()
-            }
-        val alert = dialogueBuilder.create()
-        alert.setTitle("Issue resolution")
-        alert.show()
+
+        val copyLocationToClipboardButtonClick =  { _: DialogInterface, which: Int ->
+            Log.d(TAG, "dialog interface num: $which - Copy lat/long button")
+            locationViewModel.copyLatLongToClipboard(requireContext(), latLng)
+            Toast.makeText(context, "Lat/Long Copied! \n $latLng", Toast.LENGTH_SHORT).show()
+            startMapIntent(id, latLng)
+        }
+        val seeItOnTheMapButtonClick = { dialog: DialogInterface, which: Int ->
+            Log.d(TAG, "dialog interface num: $which - See it on the map button")
+            Toast.makeText(context, "Let's go to the Map!", Toast.LENGTH_SHORT).show()
+            dialog.dismiss()
+
+            startMapIntent(id, latLng)
+        }
+
+        val resolvedButtonClick = { dialogue: DialogInterface, which: Int ->
+            Log.d(TAG, "dialog interface num: $which - Issue Resolved button")
+            locationViewModel.markResolved(idValue)
+            dialogue.dismiss()
+        }
+
+        val cancelButtonClick = { dialogue:DialogInterface, which: Int ->
+            Log.d(TAG, "dialog interface num: $which - Cancel button")
+            dialogue.cancel()
+        }
+
+        with(AlertDialog.Builder(context)) {
+            setTitle("Title")
+            setItems(
+                arrayOf<CharSequence>("Copy Coords", "Mark Resolved", "Go to Map", "Cancel")
+            ) { dialog, which ->
+                when (which) {
+                    0 -> copyLocationToClipboardButtonClick.invoke(dialog, which)
+                    1 -> resolvedButtonClick.invoke(dialog, which)
+                    2 -> seeItOnTheMapButtonClick.invoke(dialog, which)
+                    3 -> cancelButtonClick.invoke(dialog, which)
+                    else -> dialog.cancel()
+                }
+            }.create().show()
+        }
+    }
+
+    override fun onItemLongClick(recyclerPosition: Int, idValue: Int) {
+        TODO("Not yet implemented")
     }
 }
