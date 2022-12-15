@@ -25,5 +25,8 @@
     <string name="report_poop_button_toast">The poop on the trail has been reported! </string>
     <string name="idLabel">ID:</string>
     <string name="at_logo">AT Logo</string>
+    <string name="btn_filter">Filter</string>
+    <string name="list_item_reported_by">Reported By:</string>
+    <string name="list_item_issue_type">Issue Type:</string>
 
 </resources>
