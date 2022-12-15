@@ -168,9 +168,9 @@ class ListFragment: Fragment(), LocationListAdapter.OnItemClickListener, Locatio
         }
 
         with(AlertDialog.Builder(context)) {
-            setTitle("Title")
+            setTitle("Available actions...")
             setItems(
-                arrayOf<CharSequence>("Copy Coords", "Mark Resolved", "Go to Map", "Cancel")
+                arrayOf<CharSequence>("Copy Coordinates", "Mark as Resolved", "Go to Item on Map", "Cancel")
             ) { dialog, which ->
                 when (which) {
                     0 -> copyLocationToClipboardButtonClick.invoke(dialog, which)
