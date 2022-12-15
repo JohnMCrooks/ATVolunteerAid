@@ -1,8 +1,14 @@
+
+plugins {
+    id("org.jlleitschuh.gradle.ktlint") version "10.2.0"
+}
+
 apply plugin: 'com.android.application'
 apply plugin: 'kotlin-android'
 apply plugin: 'kotlin-android-extensions'
 apply plugin: 'kotlin-kapt'
 apply plugin: 'androidx.navigation.safeargs'
+
 //apply plugin: 'com.google.gms.google-services'
 //apply plugin: 'com.google.firebase.crashlytics'
 
@@ -10,12 +16,16 @@ android {
     compileSdkVersion 30
     buildToolsVersion "30.0.2"
 
+    compileOptions {
+        sourceCompatibility 1.8
+        targetCompatibility 1.8
+    }
     defaultConfig {
         applicationId "com.skoorc.atvolunteeraid"
         minSdkVersion 24
         targetSdkVersion 30
         versionCode 1
-        versionName "1.0"
+        versionName "1.1.0"
 
         // Read the API key from secure.properties into R.string.maps_api_key
         def secureProps = new Properties()
@@ -33,12 +43,6 @@ android {
     // Enables data binding.
     buildFeatures {
         dataBinding true
-    }
-}
-
-kotlin {
-    experimental {
-        coroutines 'enable'
     }
 }
 
@@ -94,4 +98,9 @@ dependencies {
     })
     androidTestImplementation "androidx.test.ext:junit:1.1.2"
     androidTestImplementation 'androidx.test.espresso:espresso-core:3.3.0'
+}
+
+ktlint {
+    android.set(true)
+    outputColorName.set("RED")
 }

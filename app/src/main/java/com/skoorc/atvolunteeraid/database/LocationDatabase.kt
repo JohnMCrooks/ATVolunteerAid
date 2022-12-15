@@ -12,9 +12,10 @@ import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
 // DB reference --> https://developer.android.com/codelabs/android-room-with-a-view-kotlin#10
-@Database(entities = [Location::class, User::class], version = 4, exportSchema = false)
+@Database(entities = [Location::class, User::class], version = 5, exportSchema = false)
 abstract class LocationDatabase: RoomDatabase() {
     abstract fun locationDAO(): LocationDAO
+    val TAG = "LocationDatabase"
 
     companion object {
         // Singleton prevents multiple instances of database opening at the
@@ -41,13 +42,13 @@ abstract class LocationDatabase: RoomDatabase() {
 //    Database callback reference
 //    https://developer.android.com/codelabs/android-room-with-a-view-kotlin#12
     private class LocationDatabaseCallback(private val scope: CoroutineScope): RoomDatabase.Callback() {
+        val TAG = "LocationDatabaseCallback"
         override fun onOpen(db: SupportSQLiteDatabase) {
             super.onOpen(db)
             INSTANCE?.let { database ->
                 scope.launch{
                     prePopulateDatabase(database.locationDAO())
                 }
-
             }
         }
         suspend fun prePopulateDatabase(locationDao: LocationDAO) {
@@ -58,8 +59,8 @@ abstract class LocationDatabase: RoomDatabase() {
                 "-79.334662259",
                 "1/11/2021",
                 "Trash",
-                "JC",
-                "Unresolved"
+                "Unresolved",
+                "JC"
             )
             locationDao.insertLocation(locationPlaceholder)
             locationPlaceholder = Location(
@@ -67,8 +68,10 @@ abstract class LocationDatabase: RoomDatabase() {
                 "-79.334662259",
                 "10/12/2021",
                 "Trash",
+                "Resolved",
                 "Mary",
-                "Resolved"
+                resolvedBy = "Joseph",
+                dateResolved = "11/20/2021"
             )
             locationDao.insertLocation(locationPlaceholder)
             locationPlaceholder = Location(
@@ -76,8 +79,10 @@ abstract class LocationDatabase: RoomDatabase() {
                 "-79.334662259",
                 "10/13/2021",
                 "Trash",
+                "Resolved",
                 "Joseph",
-                "Resolved"
+                resolvedBy = "JC",
+                dateResolved = "11/20/2021"
             )
             locationDao.insertLocation(locationPlaceholder)
             var locationPlaceholder2 = Location(
@@ -85,8 +90,8 @@ abstract class LocationDatabase: RoomDatabase() {
                 "-72.871504692",
                 "2/11/2021",
                 "Incorrect blaze",
-                "JC",
-                "Unresolved"
+                "Unresolved",
+                "JC"
             )
             locationDao.insertLocation(locationPlaceholder2)
             locationPlaceholder2.date = "3/11/2021"
@@ -129,9 +134,12 @@ abstract class LocationDatabase: RoomDatabase() {
                 "6/09/2021",
                 "Trail Blocked",
                 "JC",
-                "Unresolved"
+                "Resolved",
+                resolvedBy = "Mary",
+                dateResolved = "12/01/2021"
             )
             locationDao.insertLocation(locationPlaceholder)
+            Log.d(TAG, locationPlaceholder.toString())
             locationDao.insertLocation(locationPlaceholder2)
         }
     }

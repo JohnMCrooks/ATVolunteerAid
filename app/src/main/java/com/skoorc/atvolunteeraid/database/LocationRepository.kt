@@ -5,6 +5,7 @@ import androidx.annotation.WorkerThread
 import androidx.lifecycle.asFlow
 import com.skoorc.atvolunteeraid.model.Location
 import kotlinx.coroutines.flow.Flow
+import java.util.*
 
 //https://developer.android.com/codelabs/android-room-with-a-view-kotlin#10
 class LocationRepository (private val locationDAO: LocationDAO) {
@@ -15,7 +16,6 @@ class LocationRepository (private val locationDAO: LocationDAO) {
     val totalLocationCount: Flow<Int> = locationDAO.getLocationCount().asFlow()
     val resolvedLocationCount: Flow<Int> = locationDAO.getResolvedLocationCount().asFlow()
     val unresolvedLocationCount: Flow<Int> = locationDAO.getUnresolvedLocationCount().asFlow()
-    val getLatestLocation = locationDAO.getLatestLocation().asFlow()
 
     @WorkerThread
     suspend fun insert(location: Location) {
@@ -38,5 +38,9 @@ class LocationRepository (private val locationDAO: LocationDAO) {
     @WorkerThread
     fun setIssueResolved(id: Int) {
         locationDAO.markIssueResolved(id)
+    }
+
+    fun getLocationByUUID(uuid: UUID): Flow<Location> {
+        return locationDAO.getLocationByUUID(uuid).asFlow()
     }
 }

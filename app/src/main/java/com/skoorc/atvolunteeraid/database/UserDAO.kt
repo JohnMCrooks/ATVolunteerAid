@@ -24,7 +24,7 @@ interface UserDAO {
     @Query ("SELECT * FROM user_table ORDER BY date_joined DESC")
     fun getAllUsers(): LiveData<List<User>>
 
-    // To be used if and when I setup an admin utility wayyyyyy down the road.
+    // To be used if and when I setup an admin utility way down the road.
     @Query ("SELECT * FROM user_table WHERE admin_status='true' ORDER BY date_joined DESC")
     fun getAllAdminUsers(): LiveData<List<User>>
 
