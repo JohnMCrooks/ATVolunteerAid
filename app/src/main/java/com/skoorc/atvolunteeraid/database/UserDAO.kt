@@ -5,7 +5,6 @@ import androidx.room.Dao
 import androidx.room.Insert
 import androidx.room.OnConflictStrategy
 import androidx.room.Query
-import com.skoorc.atvolunteeraid.model.Location
 import com.skoorc.atvolunteeraid.model.User
 
 @Dao
@@ -28,10 +27,10 @@ interface UserDAO {
     @Query ("SELECT * FROM user_table WHERE admin_status='true' ORDER BY date_joined DESC")
     fun getAllAdminUsers(): LiveData<List<User>>
 
-    @Query ("UPDATE user_table SET admin_status=:boolean WHERE id= :userId")
-    fun setAdminStatusById(userId: Int, boolean: Boolean)
+    @Query ("UPDATE user_table SET admin_status= :isAdmin WHERE id= :userId")
+    fun setAdminStatusById(userId: Int, isAdmin: Boolean)
 
-    @Query ("UPDATE user_table SET is_shadow_banned=:boolean WHERE id= :userId")
-    fun setShadowBanStatusById(userId: Int, boolean: Boolean)
+    @Query ("UPDATE user_table SET is_shadow_banned= :isBanned WHERE id= :userId")
+    fun setShadowBanStatusById(userId: Int, isBanned: Boolean)
 
 }
