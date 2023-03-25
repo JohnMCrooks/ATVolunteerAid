@@ -28,5 +28,6 @@
     <string name="btn_filter">Filter</string>
     <string name="list_item_reported_by">Reported By:</string>
     <string name="list_item_issue_type">Issue Type:</string>
+    <string name="title_activity_main_compose">MainActivityCompose</string>
 
 </resources>

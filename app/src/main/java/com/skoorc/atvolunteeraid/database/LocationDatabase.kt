@@ -8,6 +8,7 @@ import androidx.room.RoomDatabase
 import androidx.sqlite.db.SupportSQLiteDatabase
 import com.skoorc.atvolunteeraid.model.Location
 import com.skoorc.atvolunteeraid.model.User
+import com.skoorc.atvolunteeraid.util.MockUtil
 import kotlinx.coroutines.CoroutineScope
 import kotlinx.coroutines.launch
 
@@ -43,6 +44,7 @@ abstract class LocationDatabase: RoomDatabase() {
 //    Database callback reference
 //    https://developer.android.com/codelabs/android-room-with-a-view-kotlin#12
     private class LocationDatabaseCallback(private val scope: CoroutineScope): RoomDatabase.Callback() {
+        val mockUtil = MockUtil()
         val TAG = "LocationDatabaseCallback"
         override fun onOpen(db: SupportSQLiteDatabase) {
             super.onOpen(db)
@@ -56,112 +58,103 @@ abstract class LocationDatabase: RoomDatabase() {
             Log.i("DatabaseInit", "pre-populating database")
             locationDao.deleteAll()
 
-            fun randomName(): String {return arrayOf("JMC", "Shelly", "BikerBae","barrelBowls", "sharknado", "yogiBear").random()}
-            fun issueType(): String {return arrayOf("Trash", "Trail Blocked", "Poop", "Missing Marker", "Scary Bears").random()}
-            fun randomDay():String {return  (1..31).random().toString()}
-            fun randomMonth():String {return  (1..12).random().toString()}
-            fun randomYear():String {return  (1990..2021).random().toString()}
-            fun randomDate(): String {return "${randomYear()}/${randomMonth()}/${randomDay()}"}
-
             var locationPlaceholder = Location(
                 "37.6751636590001",
                 "-79.334662259",
-                randomDate(),
-                issueType(),
+                mockUtil.randomDate(),
+                mockUtil.randomIssueType(),
                 "Unresolved",
-                randomName()
+                mockUtil.randomName()
             )
             locationDao.insertLocation(locationPlaceholder)
             locationPlaceholder = Location(
                 "37.6751536590001",
                 "-79.334662259",
-                randomDate(),
-                issueType(),
+                mockUtil.randomDate(),
+                mockUtil.randomIssueType(),
                 "Resolved",
-                randomName(),
-                resolvedBy = randomName(),
-                dateResolved = randomDate()
+                mockUtil.randomName(),
+                resolvedBy = mockUtil.randomName(),
+                dateResolved = mockUtil.randomDate()
             )
             locationDao.insertLocation(locationPlaceholder)
             locationPlaceholder = Location(
                 "37.6751566590001",
                 "-79.334662259",
-                randomDate(),
-                issueType(),
+                mockUtil.randomDate(),
+                mockUtil.randomIssueType(),
                 "Resolved",
-                randomName(),
-                resolvedBy = randomName(),
+                mockUtil.randomName(),
+                resolvedBy = mockUtil.randomName(),
                 dateResolved = "11/20/2021"
             )
             locationDao.insertLocation(locationPlaceholder)
-            var locationPlaceholder2 = Location(
+            val locationPlaceholder2 = Location(
                 "43.5371713170001",
                 "-72.871504692",
-                randomDate(),
-                issueType(),
+                mockUtil.randomDate(),
+                mockUtil.randomIssueType(),
                 "Unresolved",
-                randomName()
+                mockUtil.randomName()
             )
             locationDao.insertLocation(locationPlaceholder2)
-            locationPlaceholder2.date = randomDate()
+            locationPlaceholder2.date = mockUtil.randomDate()
             locationPlaceholder2.longitude = "-72.8622028029999"
             locationPlaceholder2.latitude = "43.5401500850001"
-            locationPlaceholder2.type = issueType()
+            locationPlaceholder2.type = mockUtil.randomIssueType()
             locationPlaceholder2.status = "Unresolved"
-            locationPlaceholder2.reportedBy = randomName()
+            locationPlaceholder2.reportedBy = mockUtil.randomName()
 
             locationPlaceholder = Location(
                 "43.537097008",
                 "-72.871430381",
-                 randomDate(),
-                issueType(),
+                mockUtil.randomDate(),
+                mockUtil.randomIssueType(),
                 "Unresolved",
-                randomName()
+                mockUtil. randomName()
             )
             locationDao.insertLocation(locationPlaceholder)
             locationPlaceholder = Location(
                 "37.96466664",
                 "-78.887264834",
-                randomDate(),
-                issueType(),
+                mockUtil.randomDate(),
+                mockUtil.randomIssueType(),
                 "Unresolved",
-                randomName()
+                mockUtil.randomName()
 
             )
             locationDao.insertLocation(locationPlaceholder)
             locationPlaceholder = Location(
                 "37.964727768",
                 "-78.877290035",
-                randomDate(),
-                issueType(),
+                mockUtil.randomDate(),
+                mockUtil.randomIssueType(),
                 "Unresolved",
-                randomName()
+                mockUtil.randomName()
             )
             locationDao.insertLocation(locationPlaceholder)
             locationPlaceholder = Location(
                 "37.960556593",
                 "-78.892579674",
-                randomDate(),
-                issueType(),
+                mockUtil.randomDate(),
+                mockUtil.randomIssueType(),
                 "Resolved",
-                randomName(),
-                resolvedBy = randomName(),
+                mockUtil.randomName(),
+                resolvedBy = mockUtil.randomName(),
                 dateResolved = "12/01/2021"
             )
             locationDao.insertLocation(locationPlaceholder)
             Log.d(TAG, locationPlaceholder.toString())
             locationDao.insertLocation(locationPlaceholder2)
 
-            fun randomEmail():String {return  arrayOf("JMC", "Shelly", "BikerBae","barrelBowls", "sharknado", "yogiBear").random() + "gmail.com"}
-            fun randomState():String {return  arrayOf("CA", "MD", "NC", "OR", "SC", "DE", "RI", "KA", "AL").random()}
 
             fun newUser(): User {
                 return User(
-                    randomEmail(),
-                    randomName(),
-                    randomDate(),
+                    mockUtil.randomEmail(),
+                    mockUtil.randomName(),
+                    mockUtil.randomDate(),
                     false,
-                    randomState(),
+                    mockUtil.randomState(),
                     false
                 )
             }
