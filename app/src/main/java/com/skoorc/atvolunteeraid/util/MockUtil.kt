@@ -1,6 +1,7 @@
 package com.skoorc.atvolunteeraid.util
 
 import com.skoorc.atvolunteeraid.model.Location
+import com.skoorc.atvolunteeraid.model.User
 
 class MockUtil {
 
@@ -41,5 +42,16 @@ class MockUtil {
             list.add(getRandomLocationReport())
         }
         return list
+    }
+
+    fun getRandomUser(): User {
+        return User(
+            randomEmail(),
+            randomName(),
+            randomDate(),
+            false,
+            randomState(),
+            false
+        )
     }
 }

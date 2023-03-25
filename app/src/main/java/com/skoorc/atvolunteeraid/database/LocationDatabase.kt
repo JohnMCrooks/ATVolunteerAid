@@ -58,110 +58,16 @@ abstract class LocationDatabase: RoomDatabase() {
             Log.i("DatabaseInit", "pre-populating database")
             locationDao.deleteAll()
 
-            var locationPlaceholder = Location(
-                "37.6751636590001",
-                "-79.334662259",
-                mockUtil.randomDate(),
-                mockUtil.randomIssueType(),
-                "Unresolved",
-                mockUtil.randomName()
-            )
-            locationDao.insertLocation(locationPlaceholder)
-            locationPlaceholder = Location(
-                "37.6751536590001",
-                "-79.334662259",
-                mockUtil.randomDate(),
-                mockUtil.randomIssueType(),
-                "Resolved",
-                mockUtil.randomName(),
-                resolvedBy = mockUtil.randomName(),
-                dateResolved = mockUtil.randomDate()
-            )
-            locationDao.insertLocation(locationPlaceholder)
-            locationPlaceholder = Location(
-                "37.6751566590001",
-                "-79.334662259",
-                mockUtil.randomDate(),
-                mockUtil.randomIssueType(),
-                "Resolved",
-                mockUtil.randomName(),
-                resolvedBy = mockUtil.randomName(),
-                dateResolved = "11/20/2021"
-            )
-            locationDao.insertLocation(locationPlaceholder)
-            val locationPlaceholder2 = Location(
-                "43.5371713170001",
-                "-72.871504692",
-                mockUtil.randomDate(),
-                mockUtil.randomIssueType(),
-                "Unresolved",
-                mockUtil.randomName()
-            )
-            locationDao.insertLocation(locationPlaceholder2)
-            locationPlaceholder2.date = mockUtil.randomDate()
-            locationPlaceholder2.longitude = "-72.8622028029999"
-            locationPlaceholder2.latitude = "43.5401500850001"
-            locationPlaceholder2.type = mockUtil.randomIssueType()
-            locationPlaceholder2.status = "Unresolved"
-            locationPlaceholder2.reportedBy = mockUtil.randomName()
-
-            locationPlaceholder = Location(
-                "43.537097008",
-                "-72.871430381",
-                mockUtil.randomDate(),
-                mockUtil.randomIssueType(),
-                "Unresolved",
-                mockUtil. randomName()
-            )
-            locationDao.insertLocation(locationPlaceholder)
-            locationPlaceholder = Location(
-                "37.96466664",
-                "-78.887264834",
-                mockUtil.randomDate(),
-                mockUtil.randomIssueType(),
-                "Unresolved",
-                mockUtil.randomName()
-
-            )
-            locationDao.insertLocation(locationPlaceholder)
-            locationPlaceholder = Location(
-                "37.964727768",
-                "-78.877290035",
-                mockUtil.randomDate(),
-                mockUtil.randomIssueType(),
-                "Unresolved",
-                mockUtil.randomName()
-            )
-            locationDao.insertLocation(locationPlaceholder)
-            locationPlaceholder = Location(
-                "37.960556593",
-                "-78.892579674",
-                mockUtil.randomDate(),
-                mockUtil.randomIssueType(),
-                "Resolved",
-                mockUtil.randomName(),
-                resolvedBy = mockUtil.randomName(),
-                dateResolved = "12/01/2021"
-            )
-            locationDao.insertLocation(locationPlaceholder)
-            Log.d(TAG, locationPlaceholder.toString())
-            locationDao.insertLocation(locationPlaceholder2)
-
-
-            fun newUser(): User {
-                return User(
-                    mockUtil.randomEmail(),
-                    mockUtil.randomName(),
-                    mockUtil.randomDate(),
-                    false,
-                    mockUtil.randomState(),
-                    false
-                )
+            // Staging Mock Reports
+            val mockLocationList: List<Location> = MockUtil().getListOfLocations(20)
+            mockLocationList.forEach {
+                locationDao.insertLocation(it)
             }
-            userDao.insertUser(newUser())
-            userDao.insertUser(newUser())
-            userDao.insertUser(newUser())
-            userDao.insertUser(newUser())
+
+            // Staging Mock Users
+            for (i in 0..5) {
+                userDao.insertUser(mockUtil.getRandomUser())
+            }
         }
     }
 }
