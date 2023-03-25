@@ -22,7 +22,6 @@ import androidx.compose.ui.tooling.preview.Preview
 import com.skoorc.atvolunteeraid.ui.theme.ATVolunteerAidTheme
 import com.skoorc.atvolunteeraid.view.components.main.AtLogoImage
 import com.skoorc.atvolunteeraid.view.components.main.MainButton
-import com.skoorc.atvolunteeraid.view.components.problemReport.ProblemCard
 
 class MainActivityCompose : ComponentActivity() {
     @RequiresApi(Build.VERSION_CODES.P)
@@ -120,9 +119,6 @@ fun DefaultPreview() {
                     "Report an Issue",
                     MainActivityCompose.placeholderClickAction("Report Issue button clicked")
                 )
-                ProblemCard(reportType = "Poop", R.drawable.poop_icon)
-                ProblemCard(reportType = "Trash", R.drawable.trash_icon)
-                ProblemCard(reportType = "Signage", R.drawable.trail_blaze_icon)
             }
     }
 }
